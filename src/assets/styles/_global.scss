@@ -7,3 +7,17 @@ html, body {
   max-width: $container-width;
   margin: 0 auto;
 }
+
+.button {
+  border-radius: 5px;
+  background: #709FDC;
+  text-align: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 0;
+  color: #FFF;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
