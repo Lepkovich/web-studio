@@ -72,9 +72,11 @@ footer.footer {
                 text-decoration: none;
               }
 
-              button {
-                width: 153px;
-              }
+            }
+
+            button.footer-button {
+              width: 153px;
+              padding: 10px 20px;
             }
 
             .footer-info-social {

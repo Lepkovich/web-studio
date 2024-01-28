@@ -14,7 +14,7 @@ html, body {
   border-radius: 5px;
   background: #709FDC;
   text-align: center;
-  padding: 10px 20px;
+  padding: 15px 40px;
   box-sizing: border-box;
   cursor: pointer;
   border: 0;
@@ -40,4 +40,18 @@ html, body {
   font-style: normal;
   font-weight: 400;
   color: $base-text-color;
+}
+
+.mat-mdc-menu-item {
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    a {
+      text-decoration: none;
+      color: $base-text-color;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+    }
+  }
+
 }
