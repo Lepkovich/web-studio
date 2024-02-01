@@ -161,71 +161,7 @@
       Популярные статьи из блога
     </div>
     <div class="blog-articles">
-      <div class="blog-article">
-        <span>Фриланс</span>
-        <div class="blog-article-image" style="background-image: url('../../../assets/images/article-1.png')"></div>
-        <div class="blog-article-info">
-          <div class="blog-article-info-title">
-            6 сайтов для повышения продуктивности
-          </div>
-          <div class="blog-article-info-text">
-            Хотите проводить время в сети с пользой? Наша подборка из шести полезных, но малоизвестных сайтов увеличит
-            вашу продуктивность, поможет успевать больше в течение дня и всегда быть на шаг впереди!
-          </div>
-        </div>
-        <div class="blog-article-link">
-          <a href="#">Читать дальше</a>
-        </div>
-      </div>
-      <div class="blog-article">
-        <span>Фриланс</span>
-        <div class="blog-article-image" style="background-image: url('../../../assets/images/article-1.png')"></div>
-        <div class="blog-article-info">
-          <div class="blog-article-info-title">
-            6 сайтов для повышения продуктивности
-          </div>
-          <div class="blog-article-info-text">
-            Хотите проводить время в сети с пользой? Наша подборка из шести полезных, но малоизвестных сайтов увеличит
-            вашу продуктивность, поможет успевать больше в течение дня и всегда быть на шаг впереди!
-          </div>
-        </div>
-        <div class="blog-article-link">
-          <a href="#">Читать дальше</a>
-        </div>
-      </div>
-      <div class="blog-article">
-        <span>Фриланс</span>
-        <div class="blog-article-image" style="background-image: url('../../../assets/images/article-1.png')"></div>
-        <div class="blog-article-info">
-          <div class="blog-article-info-title">
-            6 сайтов для повышения продуктивности
-          </div>
-          <div class="blog-article-info-text">
-            Хотите проводить время в сети с пользой? Наша подборка из шести полезных, но малоизвестных сайтов увеличит
-            вашу продуктивность, поможет успевать больше в течение дня и всегда быть на шаг впереди!
-          </div>
-        </div>
-        <div class="blog-article-link">
-          <a href="#">Читать дальше</a>
-        </div>
-      </div>
-      <div class="blog-article">
-        <span>Фриланс</span>
-        <div class="blog-article-image" style="background-image: url('../../../assets/images/article-1.png')"></div>
-        <div class="blog-article-info">
-          <div class="blog-article-info-title">
-            6 сайтов для повышения продуктивности
-          </div>
-          <div class="blog-article-info-text">
-            Хотите проводить время в сети с пользой? Наша подборка из шести полезных, но малоизвестных сайтов увеличит
-            вашу продуктивность, поможет успевать больше в течение дня и всегда быть на шаг впереди!
-          </div>
-        </div>
-        <div class="blog-article-link">
-          <a href="#">Читать дальше</a>
-        </div>
-      </div>
-
+      <blog-card [article]="article" *ngFor="let article of articles"></blog-card>
 
 
     </div>

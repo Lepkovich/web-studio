@@ -82,4 +82,20 @@
 ### 29/01
 Сверстал 4ый блок main.component
 
+### 01/02
+
+Карточки статей в 4-ом блоке вынес в отдельный компонент blog-card
+
+Создал mixin head-lora-38
+
+На бэкенд залил 4 картинки image1...4
+
+Создал сервис article.service.ts где мы обращаемся к бэкенду за top articles
+
+Создал тип для статей articles-card.type.ts ArticlesCardType
+
+В environment.ts добавил   serverStaticPath: "http://localhost:3000/images/" чтобы на background-image подставлять картинки с бэкенда
+
+1:01 3урока
+
 
