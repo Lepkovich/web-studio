@@ -12,6 +12,33 @@ export class MainComponent implements OnInit{
 
   articles: ArticlesCardType[] = [];
 
+  offers = [
+    {
+      image: 'offer-1.png',
+      title: 'Создание сайтов',
+      text: 'В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!',
+      price: '7 500',
+    },
+    {
+      image: 'offer-2.png',
+      title: 'Продвижение',
+      text: 'Вам нужен качественный SMM-специалист или грамотный таргетолог? Мы готовы оказать Вам услугу “Продвижения” на наивысшем уровне!',
+      price: '3 500',
+    },
+    {
+      image: 'offer-3.png',
+      title: 'Реклама',
+      text: 'Без рекламы не может обойтись ни один бизнес или специалист. Обращаясь к нам, мы гарантируем быстрый прирост клиентов за счёт правильно настроенной рекламы.',
+      price: '1 000',
+    },
+    {
+      image: 'offer-4.png',
+      title: 'Копирайтинг',
+      text: 'Наши копирайтеры готовы написать Вам любые продающие текста, которые не только обеспечат рост охватов, но и помогут выйти на новый уровень в продажах.',
+      price: '750',
+    },
+  ]
+
   reviews = [
     {
       name: 'Станислав',
@@ -51,7 +78,7 @@ export class MainComponent implements OnInit{
     touchDrag: false,
     pullDrag: false,
     margin: 0,
-    dots: false,
+    dots: true,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
@@ -59,7 +86,7 @@ export class MainComponent implements OnInit{
         items: 1
       },
     },
-    nav: true
+    nav: false
   }
 
 

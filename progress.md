@@ -96,6 +96,16 @@
 
 В environment.ts добавил   serverStaticPath: "http://localhost:3000/images/" чтобы на background-image подставлять картинки с бэкенда
 
-1:01 3урока
+### 03/02
+Установил ngx-owl-carousel-o.
+
+Реализовал карусель с отзывами.
+
+### 04/02
+Создал компонент slider-card для баннеров
+
+Делал элипс на баннере - не получается с z-index
+
+
 
 

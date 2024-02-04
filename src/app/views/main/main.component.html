@@ -3,13 +3,13 @@
     <div class="slider">
       <owl-carousel-o [options]="customOptionsSlider" #owlCarSlide>
         <ng-template carouselSlide>
-          <img src="/assets/images/banner-temp.png" alt="Заглушка слайдера 1">
+          <slider-card></slider-card>
         </ng-template>
         <ng-template carouselSlide>
-          <img src="/assets/images/banner-temp.png" alt="Заглушка слайдера 2">
+          <slider-card></slider-card>
         </ng-template>
         <ng-template carouselSlide>
-          <img src="/assets/images/banner-temp.png" alt="Заглушка слайдера 3">
+          <slider-card></slider-card>
         </ng-template>
       </owl-carousel-o>
       <div class="slider-arrows">
@@ -45,76 +45,18 @@
       Услуги, которые мы предлагаем
     </div>
     <div class="offer-items">
-      <div class="offer-item">
-        <div class="offer-item-image">
-          <img src="/assets/images/offer-1.png" alt="Создание сайтов">
-        </div>
+      <div class="offer-item" *ngFor="let offer of offers">
+        <div class="offer-item-image"
+             style="background-image: url('/assets/images/offer/{{offer.image}}')"></div>
         <div class="offer-item-head">
-          Создание сайтов
+          {{offer.title}}
         </div>
         <div class="offer-item-text">
-          В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!
+          {{offer.text}}
         </div>
         <div class="offer-item-action">
           <div class="offer-item-action-price">
-            От 7 500₽
-          </div>
-          <div class="offer-item-action-button">
-            <button class="button">Подробнее</button>
-          </div>
-        </div>
-      </div>
-      <div class="offer-item">
-        <div class="offer-item-image">
-          <img src="/assets/images/offer-1.png" alt="Создание сайтов">
-        </div>
-        <div class="offer-item-head">
-          Создание сайтов
-        </div>
-        <div class="offer-item-text">
-          В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!
-        </div>
-        <div class="offer-item-action">
-          <div class="offer-item-action-price">
-            От 7 500₽
-          </div>
-          <div class="offer-item-action-button">
-            <button class="button">Подробнее</button>
-          </div>
-        </div>
-      </div>
-      <div class="offer-item">
-        <div class="offer-item-image">
-          <img src="/assets/images/offer-1.png" alt="Создание сайтов">
-        </div>
-        <div class="offer-item-head">
-          Создание сайтов
-        </div>
-        <div class="offer-item-text">
-          В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!
-        </div>
-        <div class="offer-item-action">
-          <div class="offer-item-action-price">
-            От 7 500₽
-          </div>
-          <div class="offer-item-action-button">
-            <button class="button">Подробнее</button>
-          </div>
-        </div>
-      </div>
-      <div class="offer-item">
-        <div class="offer-item-image">
-          <img src="/assets/images/offer-1.png" alt="Создание сайтов">
-        </div>
-        <div class="offer-item-head">
-          Создание сайтов
-        </div>
-        <div class="offer-item-text">
-          В краткие сроки мы создадим качественный и самое главное продающий сайт для продвижения Вашего бизнеса!
-        </div>
-        <div class="offer-item-action">
-          <div class="offer-item-action-price">
-            От 7 500₽
+            От {{offer.price}}₽
           </div>
           <div class="offer-item-action-button">
             <button class="button">Подробнее</button>
@@ -196,8 +138,6 @@
     </div>
     <div class="blog-articles">
       <blog-card [article]="article" *ngFor="let article of articles"></blog-card>
-
-
     </div>
 
     <div class="block-link">

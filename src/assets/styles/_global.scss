@@ -46,6 +46,7 @@ html, body {
   span {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+
     a {
       text-decoration: none;
       color: $base-text-color;
@@ -53,5 +54,34 @@ html, body {
       font-weight: 400;
     }
   }
+}
 
+//.owl-theme {
+//  .owl-dots {
+//    .owl-dot span {
+//      margin: 8px 10px;
+//      background: transparent;
+//      border: 1px solid black;
+//    }
+//  }
+//}
+
+
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+  background: white;
+}
+.owl-theme .owl-dots .owl-dot span {
+  width: 10px;
+  height: 10px;
+  margin: 8px 10px;
+  background: transparent;
+  border: 1px solid white;
+  box-sizing: border-box;
+}
+
+.owl-theme .owl-nav.disabled+.owl-dots {
+  position: absolute;
+  z-index: 1000;
+  bottom: 8px;
+  left: calc(50% - 44px);
 }
