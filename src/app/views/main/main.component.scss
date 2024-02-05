@@ -227,7 +227,9 @@
 
         .review-item-head {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
+          align-items: center;
+          margin-bottom: 15px;
 
           .review-item-image {
             width: 60px;
@@ -262,6 +264,8 @@
           display: flex;
           position: absolute;
           cursor: pointer;
+          z-index: 2000;
+
 
           &.move-backward {
             left: -34px;

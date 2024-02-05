@@ -8,20 +8,67 @@
   box-sizing: border-box;
   position: relative;
 
+  .slider-item-offer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    .slider-item-pre-title {
+      color: $blue-text-color;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4.8px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .slider-item-title {
+      color: #FFF;
+      font-family: 'Lora', sans-serif;
+      font-size: 50px;
+      font-weight: 400;
+      line-height: 130%;
+      max-width: 610px;
+      margin-bottom: 20px;
+
+      span {
+        color: $blue-text-color;
+      }
+    }
+
+    .slider-item-text {
+      max-width: 456px;
+      color: #FFF;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 130%;
+      margin-bottom: 50px;
+    }
+
+    .slider-item-action button {
+      width: 163px;
+      color: #FFF;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+
   .circle {
     position: absolute;
-    z-index: -100;
+    z-index: 100;
     top: -702px;
     left: -1240px;
     width: 702px;
     height: 1405px;
-    background: #B9D5FD 50%;
-    border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+    //background: #B9D5FD 50%;
+    //border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+    background: #B9D5FD;
   }
+
 
   .image {
     position: absolute;
-    z-index: -200;
+    z-index: -1;
     top: 0;
     right: 0;
     width: 750px;
@@ -29,44 +76,5 @@
     background-image: url('../../../../assets/images/banner/banner-1.png'); /* путь к вашему фото */
     background-size: cover;
     background-position: center;
-  }
-
-  .slider-item-pre-title {
-    color: $blue-text-color;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 4.8px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .slider-item-title {
-    color: #FFF;
-    font-family: 'Lora', sans-serif;
-    font-size: 50px;
-    font-weight: 400;
-    line-height: 130%;
-    max-width: 610px;
-    margin-bottom: 20px;
-
-    span {
-      color: $blue-text-color;
-    }
-  }
-
-  .slider-item-text {
-    max-width: 456px;
-    color: #FFF;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 130%;
-    margin-bottom: 50px;
-  }
-
-  .slider-item-action button {
-    width: 163px;
-    color: #FFF;
-    font-size: 16px;
-    font-weight: 400;
   }
 }
