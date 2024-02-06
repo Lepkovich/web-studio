@@ -1,17 +1,18 @@
 @import "../../../../assets/styles/variables";
 
 .slider-item {
-  padding: 100px 80px;
+  //padding: 100px 80px;
   font-family: 'Montserrat', sans-serif;
   height: 500px;
   width: 1239px;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
 
   .slider-item-offer {
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 80px;
+    top: 100px;
     z-index: 9999;
     .slider-item-pre-title {
       color: $blue-text-color;
@@ -57,12 +58,12 @@
     position: absolute;
     z-index: 100;
     top: -702px;
-    left: -1240px;
+    left: 0;
     width: 702px;
     height: 1405px;
-    //background: #B9D5FD 50%;
-    //border-radius: 0 100% 100% 0 / 0 50% 50% 0;
-    background: #B9D5FD;
+    background: #B9D5FD 50%;
+    border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+    //background: #B9D5FD;
   }
 
 
@@ -73,7 +74,7 @@
     right: 0;
     width: 750px;
     height: 500px;
-    background-image: url('../../../../assets/images/banner/banner-1.png'); /* путь к вашему фото */
+    background-image: url('../../../../assets/images/banner/banner-1.png');
     background-size: cover;
     background-position: center;
   }
