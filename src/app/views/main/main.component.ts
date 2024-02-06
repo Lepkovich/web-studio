@@ -3,6 +3,8 @@ import {ArticleService} from "../../shared/services/article.service";
 import {ArticlesCardType} from "../../../types/articles-card.type";
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {BannerType} from "../../../types/banner.type";
+import {MatDialog} from "@angular/material/dialog";
+import {PopupFormComponent} from "../../shared/component/popup-form/popup-form.component";
 
 @Component({
   selector: 'app-main',
@@ -133,7 +135,8 @@ export class MainComponent implements OnInit{
     nav: false
   }
 
-  constructor(private articleService: ArticleService) {
+  constructor(private articleService: ArticleService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -141,6 +144,11 @@ export class MainComponent implements OnInit{
       .subscribe((data: ArticlesCardType[]) => {
         this.articles = data;
       })
+  }
+
+  openDialog() {
+    this.dialog.open(PopupFormComponent);
+
   }
 
 }
