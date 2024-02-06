@@ -1,13 +1,13 @@
-<div class="slider-item">
+<div class="slider-item" *ngIf="banner">
   <div class="slider-item-offer">
     <div class="slider-item-pre-title">
-      Акция
+      {{banner.preTitle}}
     </div>
-    <div class="slider-item-title">
-      Нужен грамотный <span>копирайтер</span>?
-    </div>
+<!--    <div class="slider-item-title" [innerHTML]="banner.title"></div>-->
+    <div class="slider-item-title" [innerHTML]="sanitizeHtml(banner.title)"></div>
+<!--    <div class="slider-item-title">Продвижение в Instagram для вашего бизнеса <span>-15%</span>!</div>-->
     <div class="slider-item-text">
-      Весь декабрь у нас действует акция на работу копирайтера.
+      {{banner.text}}
     </div>
     <div class="slider-item-action">
       <button class="button">Подробнее</button>

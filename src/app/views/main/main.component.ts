@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ArticleService} from "../../shared/services/article.service";
 import {ArticlesCardType} from "../../../types/articles-card.type";
 import {OwlOptions} from "ngx-owl-carousel-o";
+import {BannerType} from "../../../types/banner.type";
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,26 @@ import {OwlOptions} from "ngx-owl-carousel-o";
 })
 export class MainComponent implements OnInit{
 
+
   articles: ArticlesCardType[] = [];
+
+  banners: BannerType[] = [
+    {
+      preTitle: 'Предложение месяца',
+      title: 'Продвижение в Instagram для вашего бизнеса <span>-15%</span>!',
+      text: ''
+    },
+    {
+      preTitle: 'Акция',
+      title: 'Нужен грамотный <span>копирайтер</span>? ',
+      text: 'Весь декабрь у нас действует акция на работу копирайтера.'
+    },
+    {
+      preTitle: 'Новость дня',
+      title: '<span>6 место</span> в ТОП-10 SMM-агенств Москвы!',
+      text: 'Мы благодарим каждого, кто голосовал за нас!'
+    },
+  ]
 
   offers = [
     {

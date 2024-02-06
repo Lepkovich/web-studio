@@ -2,14 +2,8 @@
   <div class="container">
     <div class="slider">
       <owl-carousel-o [options]="customOptionsSlider" #owlCarSlide>
-        <ng-template carouselSlide>
-          <slider-card></slider-card>
-        </ng-template>
-        <ng-template carouselSlide>
-          <slider-card></slider-card>
-        </ng-template>
-        <ng-template carouselSlide>
-          <slider-card></slider-card>
+        <ng-template carouselSlide  *ngFor="let banner of banners">
+          <slider-card [banner]="banner"></slider-card>
         </ng-template>
       </owl-carousel-o>
       <div class="slider-arrows">

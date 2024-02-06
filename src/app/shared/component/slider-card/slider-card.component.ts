@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {BannerType} from "../../../../types/banner.type";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
   selector: 'slider-card',
@@ -7,31 +9,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SliderCardComponent implements OnInit{
 
-  banner = [
-    {
-      preTitle: 'Предложение месяца',
-      title: 'Продвижение в Instagram для вашего бизнеса ',
-      titleBold: '-15%!',
-      text: ''
-    },
-    {
-      preTitle: 'Акция',
-      title: 'Нужен грамотный ',
-      titleBold: 'копирайтер?',
-      text: 'Весь декабрь у нас действует акция на работу копирайтера.'
-    },
-    {
-      preTitle: 'Новость дня',
-      title: ' в ТОП-10 SMM-агенств Москвы!',
-      titleBold: '6 место',
-      text: 'Мы благодарим каждого, кто голосовал за нас!'
-    },
-  ]
+  @Input() banner!: BannerType;
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
 }
