@@ -1,0 +1,39 @@
+@import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/auth-form";
+
+
+.popup-form {
+  width: 727px;
+  height: 489px;
+  position: relative;
+  text-align: center;
+  a.popup-form-close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+  }
+  h2 {
+    @include head-lora-38;
+    margin-top: 94px;
+    margin-bottom: 20px;
+  }
+
+  .form-inputs {
+    margin-bottom: 15px;
+
+    input {
+      margin-bottom: 5px;
+      padding: 17px 20px;
+      width: 422px;
+      border-radius: 3pxш;
+      color: #A8ABA7;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      .drop-out {
+        color: $blue-text-color;
+      }
+    }
+  }
+}
