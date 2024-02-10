@@ -85,3 +85,12 @@ html, body {
   bottom: 8px;
   left: calc(50% - 44px);
 }
+
+.mat-mdc-select-arrow {
+  display: none;
+}
+.mat-mdc-option.drop-out {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}

@@ -4,12 +4,19 @@
       <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
       <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
     </svg>
-
   </a>
-    <h2 mat-dialog-title>Заявка на услугу</h2>
+    <h2 mat-dialog-title>Заявка на услугу2</h2>
+<!--  <mat-form-field>-->
+<!--    <mat-label>Favorite food</mat-label>-->
+
+<!--  </mat-form-field>-->
     <mat-dialog-content>
       <div class="form-inputs">
-        <input type="text" class="input drop-out"  placeholder="Копирайтинг">
+<!--        <input  class="input drop-out" id="offer">-->
+        <mat-select [(ngModel)]="selectedValue" class="input">
+          <mat-option class="drop-out" *ngFor="let title of titles" [value]="title.value">{{title.viewValue}}</mat-option>
+        </mat-select>
+
         <input type="text" class="input" placeholder="Ваше имя">
         <!--           [ngStyle]="{'border-color': signupForm.get('name')?.invalid-->
         <!--                 && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched) ? 'red' : ''}"-->

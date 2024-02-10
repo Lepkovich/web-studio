@@ -20,17 +20,20 @@ export class MainComponent implements OnInit{
     {
       preTitle: 'Предложение месяца',
       title: 'Продвижение в Instagram для вашего бизнеса <span>-15%</span>!',
-      text: ''
+      text: '',
+      image: 'banner-1.png'
     },
     {
       preTitle: 'Акция',
       title: 'Нужен грамотный <span>копирайтер</span>? ',
-      text: 'Весь декабрь у нас действует акция на работу копирайтера.'
+      text: 'Весь декабрь у нас действует акция на работу копирайтера.',
+      image: 'banner-2.png'
     },
     {
       preTitle: 'Новость дня',
       title: '<span>6 место</span> в ТОП-10 SMM-агенств Москвы!',
-      text: 'Мы благодарим каждого, кто голосовал за нас!'
+      text: 'Мы благодарим каждого, кто голосовал за нас!',
+      image: 'banner-3.png'
     },
   ]
 
@@ -146,7 +149,7 @@ export class MainComponent implements OnInit{
       })
   }
 
-  openDialog() {
+  openDialog(title: string) {
     this.dialog.open(PopupFormComponent);
 
   }

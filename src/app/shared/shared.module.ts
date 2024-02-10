@@ -5,6 +5,10 @@ import {RouterModule} from "@angular/router";
 import { SliderCardComponent } from './component/slider-card/slider-card.component';
 import { PopupFormComponent } from './component/popup-form/popup-form.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -17,11 +21,17 @@ import {MatDialogModule} from "@angular/material/dialog";
     imports: [
         CommonModule,
         RouterModule,
-        MatDialogModule
+      FormsModule,
+      // ReactiveFormsModule,
+      MatDialogModule,
+      MatInputModule,
+      MatSelectModule,
+      MatFormFieldModule
     ],
   exports: [
     BlogCardComponent,
-    SliderCardComponent
+    SliderCardComponent,
+    PopupFormComponent
   ]
 })
 export class SharedModule { }

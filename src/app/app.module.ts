@@ -14,6 +14,11 @@ import {MatMenuModule} from "@angular/material/menu";
 import {SharedModule} from "./shared/shared.module";
 import {CarouselModule} from "ngx-owl-carousel-o";
 import {MatDialogModule} from "@angular/material/dialog";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatFormFieldModule} from "@angular/material/form-field";
+
 
 @NgModule({
   declarations: [
@@ -30,8 +35,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatSnackBarModule,
     MatMenuModule,
     CarouselModule,
+    ReactiveFormsModule,
     SharedModule,
-    MatDialogModule,
     BrowserAnimationsModule
   ],
   providers: [
