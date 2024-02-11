@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ArticleService} from "../../shared/services/article.service";
 import {ArticlesCardType} from "../../../types/articles-card.type";
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {BannerType} from "../../../types/banner.type";
 import {MatDialog} from "@angular/material/dialog";
-import {PopupFormComponent} from "../../shared/component/popup-form/popup-form.component";
+import {DialogService} from "../../shared/services/dialog.service";
 
 @Component({
   selector: 'app-main',
@@ -13,7 +13,6 @@ import {PopupFormComponent} from "../../shared/component/popup-form/popup-form.c
 })
 export class MainComponent implements OnInit{
 
-
   articles: ArticlesCardType[] = [];
 
   banners: BannerType[] = [
@@ -21,19 +20,22 @@ export class MainComponent implements OnInit{
       preTitle: 'Предложение месяца',
       title: 'Продвижение в Instagram для вашего бизнеса <span>-15%</span>!',
       text: '',
-      image: 'banner-1.png'
+      image: 'banner-1.png',
+      consultType: 'Продвижение'
     },
     {
       preTitle: 'Акция',
       title: 'Нужен грамотный <span>копирайтер</span>? ',
       text: 'Весь декабрь у нас действует акция на работу копирайтера.',
-      image: 'banner-2.png'
+      image: 'banner-2.png',
+      consultType: 'Копирайтинг'
     },
     {
       preTitle: 'Новость дня',
       title: '<span>6 место</span> в ТОП-10 SMM-агенств Москвы!',
       text: 'Мы благодарим каждого, кто голосовал за нас!',
-      image: 'banner-3.png'
+      image: 'banner-3.png',
+      consultType: 'Реклама'
     },
   ]
 
@@ -139,7 +141,8 @@ export class MainComponent implements OnInit{
   }
 
   constructor(private articleService: ArticleService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -150,8 +153,13 @@ export class MainComponent implements OnInit{
   }
 
   openDialog(title: string) {
-    this.dialog.open(PopupFormComponent);
+    this.dialogService.openPopupForm(title); //передаем данные для попап через сервис
 
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.data = { title: title }; // Передаем данные в диалоговое окно
+    // this.dialogRef = this.dialog.open(PopupFormComponent, dialogConfig);
+    // this.dialog.open(PopupFormComponent, dialogConfig);
   }
+
 
 }

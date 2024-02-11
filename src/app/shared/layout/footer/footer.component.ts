@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {DialogService} from "../../services/dialog.service";
 
 @Component({
   selector: 'app-footer',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  constructor(private dialogService: DialogService) {
+  }
+  openDialog() {
+    this.dialogService.openPopupForm('consult'); //передаем данные для попап через сервис
+  }
 }
