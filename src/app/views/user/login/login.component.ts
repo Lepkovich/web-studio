@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit{
   }
 
   login(): void {
+    if(this.loginForm.invalid) {
+      this._snackBar.open('Ошибка авторизации');
+    };
+
     if(this.loginForm.valid && this.loginForm.value.email && this.loginForm.value.password) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password, !!this.loginForm.value.rememberMe)
         .subscribe({

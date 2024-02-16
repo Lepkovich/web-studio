@@ -1,7 +1,6 @@
 @import "../../../../assets/styles/variables";
 
 .slider-item {
-  //padding: 100px 80px;
   font-family: 'Montserrat', sans-serif;
   height: 500px;
   width: 1239px;
@@ -31,10 +30,6 @@
       line-height: 130%;
       max-width: 610px;
       margin-bottom: 20px;
-
-      span {
-        color: $blue-text-color;
-      }
     }
 
     .slider-item-text {

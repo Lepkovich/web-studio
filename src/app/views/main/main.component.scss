@@ -259,18 +259,22 @@
 
       .reviews-arrows {
         display: flex;
-        a {
+        div {
           top: calc(50% - 5px);
           display: flex;
           position: absolute;
           cursor: pointer;
           z-index: 2000;
+          width: 10px;
+          height: 19px;
+          background-position: center;
+          background-size: cover;
 
 
-          &.move-backward {
+          &.move-back {
             left: -34px;
           }
-          &.move-forward {
+          &.move-next {
             right: -34px;
           }
         }

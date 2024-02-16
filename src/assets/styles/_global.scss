@@ -42,6 +42,16 @@ html, body {
   color: $base-text-color;
 }
 
+.slider-item {
+  .slider-item-offer {
+    .slider-item-title {
+      span {
+        color: $blue-text-color;
+      }
+    }
+  }
+}
+
 .mat-mdc-menu-item {
   span {
     font-family: 'Montserrat', sans-serif;
@@ -55,17 +65,6 @@ html, body {
     }
   }
 }
-
-//.owl-theme {
-//  .owl-dots {
-//    .owl-dot span {
-//      margin: 8px 10px;
-//      background: transparent;
-//      border: 1px solid black;
-//    }
-//  }
-//}
-
 
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
   background: white;
