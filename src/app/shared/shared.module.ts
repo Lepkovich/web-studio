@@ -10,6 +10,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MainComponent} from "../views/main/main.component";
+import { ArticleFilterComponent } from './component/article-filter/article-filter.component';
 
 
 
@@ -18,6 +19,7 @@ import {MainComponent} from "../views/main/main.component";
     BlogCardComponent,
     SliderCardComponent,
     PopupFormComponent,
+    ArticleFilterComponent,
   ],
     imports: [
         CommonModule,
@@ -32,7 +34,8 @@ import {MainComponent} from "../views/main/main.component";
   exports: [
     BlogCardComponent,
     SliderCardComponent,
-    PopupFormComponent
+    PopupFormComponent,
+    ArticleFilterComponent
   ]
 })
 export class SharedModule { }

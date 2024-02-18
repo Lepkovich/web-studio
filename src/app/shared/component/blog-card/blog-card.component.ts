@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ArticlesCardType} from "../../../../types/articles-card.type";
 import {environment} from "../../../../environments/environment";
 
