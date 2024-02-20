@@ -14,8 +14,8 @@
   <div class="catalog-filter-body">
     <div class="catalog-filter-item" *ngFor="let category of categories" (click)="updateFilter(category.url)">
       <div>{{category.name}}</div>
-      <span *ngIf="!open">+</span>
-      <span *ngIf="open">-</span>
+      <span *ngIf="category.active">+</span>
+      <span *ngIf="!category.active">-</span>
     </div>
   </div>
 

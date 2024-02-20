@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CategoriesType} from "../../../../types/categories.type";
 import {ActiveParamsType} from "../../../../types/active-params.type";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FilteredCategoriesType} from "../../../../types/filtered-categories.type";
 
 @Component({
   selector: 'article-filter',
@@ -17,6 +18,7 @@ export class ArticleFilterComponent implements OnInit{
 
 
   @Input() categories:CategoriesType[] = [];
+  @Input() filteredCategories: FilteredCategoriesType[] = [];;
   open = false;
   activeParams: ActiveParamsType = {pages: 1, categories: []};
 
@@ -24,6 +26,12 @@ export class ArticleFilterComponent implements OnInit{
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
+      const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
+      this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+      this.categories.forEach(category => {
+        category.active = categoriesFromQuery.includes(category.url);
+      });
+
     })
   }
 

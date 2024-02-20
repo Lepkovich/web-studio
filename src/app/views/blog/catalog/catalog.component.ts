@@ -3,7 +3,7 @@ import {ArticleService} from "../../../shared/services/article.service";
 import {ArticlesCardType} from "../../../../types/articles-card.type";
 import {CategoriesType} from "../../../../types/categories.type";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AppliedFilterType} from "../../../../types/applied-filter.type";
+import {FilteredCategoriesType} from "../../../../types/filtered-categories.type";
 
 @Component({
   selector: 'app-catalog',
@@ -16,7 +16,7 @@ export class CatalogComponent implements OnInit{
   open = false;
   categories: CategoriesType[] = [];
   pages: number = 1;
-  appliedFilters: AppliedFilterType[] = [];
+  filteredCategories: FilteredCategoriesType[] = [];
 
 
   constructor(private articleService: ArticleService,
@@ -28,7 +28,6 @@ export class CatalogComponent implements OnInit{
       .subscribe(data => {
         this.articles = data.items;
         this.pages = data.pages;
-        console.log(this.articles);
       })
 
     this.articleService.getCategories()
@@ -40,16 +39,22 @@ export class CatalogComponent implements OnInit{
       // здесь нужно разобраться что присваивать в this.categories
 
 
-      console.log(params);
-      console.log(this.categories);
+      // console.log(params);
+
+      const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
+      // console.log('categoriesFromQuery', categoriesFromQuery)
+      // console.log('this.categories', this.categories);
+
+      this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+      // console.log('filteredCategories', this.filteredCategories);
 
       // this.appliedFilters = params[];
 
     });
   }
 
-  removeAppliedFilter(appliedFilter: AppliedFilterType) {
-
+  removeAppliedFilter(appliedFilter: FilteredCategoriesType) {
+    console.log('appliedFilter', appliedFilter)
   }
 
 
