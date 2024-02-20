@@ -16,12 +16,15 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      min-height: 45px;
+      margin-bottom: 56px;
 
       .catalog-applied-filters {
         display: flex;
         flex-wrap: wrap;
 
         .catalog-applied-filter {
+          box-sizing: border-box;
           border: 2px solid $blue-text-color;
           border-radius: 5px;
           padding: 8px 20px;
@@ -31,8 +34,8 @@
           color: $blue-text-color;
           display: flex;
           align-items: center;
-          margin-right: 20px;
-          margin-bottom: 20px;
+          margin-right: 10px;
+          margin-bottom: 3px;
 
           a {
             text-decoration: none;
