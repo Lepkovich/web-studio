@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit{
               private router: Router,
   ) {
     this.isLogged = authService.isLoggedIn();
-    console.log(this.isLogged)
   }
 
   ngOnInit() {

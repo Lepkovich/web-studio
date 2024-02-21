@@ -12,10 +12,10 @@
   </div>
 
   <div class="catalog-filter-body">
-    <div class="catalog-filter-item" *ngFor="let category of categories" (click)="updateFilter(category.url)">
+    <div class="catalog-filter-item" *ngFor="let category of categories" [class.active]="category.active" (click)="updateFilter(category.url)">
       <div>{{category.name}}</div>
-      <span *ngIf="category.active">+</span>
-      <span *ngIf="!category.active">-</span>
+      <span *ngIf="category.active">-</span>
+      <span *ngIf="!category.active">+</span>
     </div>
   </div>
 

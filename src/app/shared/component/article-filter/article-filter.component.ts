@@ -18,25 +18,39 @@ export class ArticleFilterComponent implements OnInit{
 
 
   @Input() categories:CategoriesType[] = [];
-  @Input() filteredCategories: FilteredCategoriesType[] = [];;
+  @Input() filteredCategories: FilteredCategoriesType[] = [];
   open = false;
   activeParams: ActiveParamsType = {pages: 1, categories: []};
 
 
 
   ngOnInit() {
+    // this.activatedRoute.queryParams.subscribe(params => {
+    //   const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
+    //
+    //   // this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+    //   //добавили active=true выбранным категориям
+    //
+    //   // console.log('categoriesFromQuery', categoriesFromQuery);
+    //   // console.log('filteredCategories', this.filteredCategories);
+    //
+    //   // this.updateFilter(categoriesFromQuery);
+    //
+    // })
+  }
+
+  toggle() {
+    this.open = !this.open;
+    console.log('categories', this.categories);
     this.activatedRoute.queryParams.subscribe(params => {
       const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
-      this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+
       this.categories.forEach(category => {
         category.active = categoriesFromQuery.includes(category.url);
       });
 
     })
-  }
 
-  toggle() {
-    this.open = !this.open;
   }
 
   updateFilter(category: string) {

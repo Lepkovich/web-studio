@@ -33,24 +33,17 @@ export class CatalogComponent implements OnInit{
     this.articleService.getCategories()
       .subscribe(data => {
         this.categories = data;
+        if (this.categories && this.categories.length > 0) {
+          this.activatedRoute.queryParams.subscribe(params => {
+            const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
+            if (categoriesFromQuery && categoriesFromQuery.length > 0) {
+              this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+            }
+          });
+        }
       })
 
-    this.activatedRoute.queryParams.subscribe(params => {
-      // здесь нужно разобраться что присваивать в this.categories
 
-
-      // console.log(params);
-
-      const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
-      // console.log('categoriesFromQuery', categoriesFromQuery)
-      // console.log('this.categories', this.categories);
-
-      this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
-      // console.log('filteredCategories', this.filteredCategories);
-
-      // this.appliedFilters = params[];
-
-    });
   }
 
   removeAppliedFilter(appliedFilter: FilteredCategoriesType) {
