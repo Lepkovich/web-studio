@@ -18,43 +18,43 @@ export class ArticleFilterComponent implements OnInit{
 
 
   @Input() categories:CategoriesType[] = [];
-  @Input() filteredCategories: FilteredCategoriesType[] = [];
   open = false;
   activeParams: ActiveParamsType = {pages: 1, categories: []};
 
 
 
   ngOnInit() {
-    // this.activatedRoute.queryParams.subscribe(params => {
-    //   const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
-    //
-    //   // this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
-    //   //добавили active=true выбранным категориям
-    //
-    //   // console.log('categoriesFromQuery', categoriesFromQuery);
-    //   // console.log('filteredCategories', this.filteredCategories);
-    //
-    //   // this.updateFilter(categoriesFromQuery);
-    //
-    // })
+    this.activatedRoute.queryParams.subscribe(params => {
+      // const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
+      this.activeParams.categories = params['categories'];
+
+      // this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+      //добавили active=true выбранным категориям
+
+      // console.log('categoriesFromQuery', categoriesFromQuery);
+      // console.log('filteredCategories', this.filteredCategories);
+
+      // this.updateFilter(categoriesFromQuery);
+
+    })
+    console.log('ngOnInit');
   }
 
   toggle() {
     this.open = !this.open;
-    console.log('categories', this.categories);
-    this.activatedRoute.queryParams.subscribe(params => {
-      const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
 
+    if (this.activeParams.categories && this.activeParams.categories.length > 0) {
       this.categories.forEach(category => {
-        category.active = categoriesFromQuery.includes(category.url);
+        category.active = this.activeParams.categories.includes(category.url);
       });
-
-    })
+    }
 
   }
 
   updateFilter(category: string) {
 
+    console.log('category', category);
+    console.log('this.activeParams.categories', this.activeParams.categories);
 
     if(this.activeParams.categories && this.activeParams.categories.length > 0) {
       const existingCategoryParams = this.activeParams.categories.find(item => item === category)
@@ -66,6 +66,19 @@ export class ArticleFilterComponent implements OnInit{
     } else {
       this.activeParams.categories = [category]
     }
+
+    if (this.activeParams.categories && this.activeParams.categories.length > 0) {
+      this.categories.forEach(category => {
+        category.active = this.activeParams.categories.includes(category.url);
+      });
+    } else {
+      this.categories.forEach(category => {
+        category.active = false;
+      });
+    }
+
+    console.log('this.activeParams.categories after if', this.activeParams.categories);
+    console.log('this.activeParams after if', this.activeParams);
 
     this.router.navigate(['/catalog'], {
       queryParams: this.activeParams

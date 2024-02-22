@@ -38,6 +38,9 @@ export class CatalogComponent implements OnInit{
             const categoriesFromQuery = params['categories']; //взяли из queryParams только categories
             if (categoriesFromQuery && categoriesFromQuery.length > 0) {
               this.filteredCategories = this.categories.filter(category => categoriesFromQuery.includes(category.url)); //отфильтровали categories
+              console.log('filteredCategories', this.filteredCategories)
+            } else {
+              this.filteredCategories = [];
             }
           });
         }
