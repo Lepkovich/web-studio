@@ -16,9 +16,9 @@ export class CatalogComponent implements OnInit{
   articles: ArticlesCardType[] = [];
   open = false;
   categories: CategoriesType[] = [];
-  pages: number = 1;
+  pages: number[] = [];
   filteredCategories: FilteredCategoriesType[] = [];
-  activeParams: ActiveParamsType = {categories: []};
+  activeParams: ActiveParamsType = {page: 1, categories: []};
 
 
 
@@ -27,44 +27,71 @@ export class CatalogComponent implements OnInit{
               private activatedRoute: ActivatedRoute) {
   }
   ngOnInit() {
-    this.articleService.getArticles()
-      .subscribe(data => {
-        this.articles = data.items;
-        this.pages = data.pages;
-      })
 
-    this.articleService.getCategories()
-      .subscribe(data => {
-        this.categories = data;
-        if (this.categories && this.categories.length > 0) {
-          this.activatedRoute.queryParams.subscribe(params => {
-            this.activeParams.categories = params['categories']; //взяли из queryParams только categories
-            console.log('this.activeParams', this.activeParams)
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.activeParams.categories = params['categories']; //взяли из queryParams только categories
+
+      this.articleService.getCategories()
+        .subscribe(data => {
+          this.categories = data;
+          if (this.categories && this.categories.length > 0) {
             if (this.activeParams.categories && this.activeParams.categories.length > 0) {
               this.filteredCategories = this.categories.filter(category => this.activeParams.categories.includes(category.url)); //отфильтровали categories
             } else {
               this.filteredCategories = [];
             }
-          });
-        }
-      })
+
+          }
+        })
+      this.articleService.getArticles(this.activeParams)
+        .subscribe(data => {
+          this.pages = [];
+          for (let i = 1; i <= data.pages; i++) {
+            this.pages.push(i);
+          }
+          this.articles = data.items;
+        })
+    });
+
+
 
 
   }
 
   removeAppliedFilter(appliedFilter: FilteredCategoriesType) {
     this.activeParams.categories = this.activeParams.categories.filter(item => item !== appliedFilter.url);
+    if (this.activeParams.categories && this.activeParams.categories.length === 0) {
+      this.open = false;
+      console.log('this.open', this.open)
+    }
 
-    const queryParams = {
-      pages: this.activeParams.pages,
-      categories: this.activeParams.categories
-    };
+    this.activeParams.page = 1;
 
-    this.router.navigate(['/catalog'], {queryParams: queryParams});
+    //здесь еще нужно будет поправить с учетом запроса на бэкенд
 
-    console.log('appliedFilter', appliedFilter);
-    console.log('this.activeParams.categories', this.activeParams.categories)
+    // const queryParams = {
+    //   pages: this.activeParams.page,
+    //   categories: this.activeParams.categories
+    // };
+
+    this.router.navigate(['/catalog'], {queryParams: this.activeParams});
   }
 
+  openPage(page: number) {
+    this.activeParams.page = page;
+    this.router.navigate(['/catalog'], {queryParams: this.activeParams});
+  }
 
+  openPrevPage(){
+    if (this.activeParams.page && this.activeParams.page > 1) {
+      this.activeParams.page--;
+      this.router.navigate(['/catalog'], {queryParams: this.activeParams});
+    }
+  }
+  openNextPage(){
+    if (this.activeParams.page && this.activeParams.page < this.pages.length) {
+      this.activeParams.page++;
+      this.router.navigate(['/catalog'], {queryParams: this.activeParams});
+    }
+  }
 }

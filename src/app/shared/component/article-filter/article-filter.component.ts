@@ -17,11 +17,13 @@ export class ArticleFilterComponent implements OnInit {
 
 
   @Input() categories: CategoriesType[] = [];
-  open = false;
-  activeParams: ActiveParamsType = {categories: []};
+  @Input() open: boolean = false;
+
+  activeParams: ActiveParamsType = {page: 1, categories: []};
 
 
   ngOnInit() {
+
 
     this.activatedRoute.queryParams.subscribe(params => {
 
@@ -59,6 +61,8 @@ export class ArticleFilterComponent implements OnInit {
 
   updateFilter(category: string) {
 
+    console.log('this.categories до', this.categories);
+
     if (this.activeParams.categories && this.activeParams.categories.length > 0) {
       const existingCategoryParams = this.activeParams.categories.find(item => item === category)
       if (existingCategoryParams) {
@@ -72,21 +76,24 @@ export class ArticleFilterComponent implements OnInit {
     }
 
     if (this.activeParams.categories && this.activeParams.categories.length > 0) {
-      this.categories.forEach(category => {
-        category.active = this.activeParams.categories.includes(category.url);
+      this.categories.forEach(item => {
+        item.active = this.activeParams.categories.includes(item.url);
       });
     } else {
-      this.categories.forEach(category => {
-        category.active = false;
+      this.categories.forEach(item => {
+        item.active = false;
       });
     }
 
-    const queryParams = {
-      pages: this.activeParams.pages,
-      categories: this.activeParams.categories
-    };
+    console.log('this.categories после', this.categories)
 
-    this.router.navigate(['/catalog'], {queryParams: queryParams});
+    // const queryParams = {
+    //   pages: this.activeParams.page,
+    //   categories: this.activeParams.categories
+    // };
+
+    this.activeParams.page = 1;
+    this.router.navigate(['/catalog'], {queryParams: this.activeParams});
 
   }
 
