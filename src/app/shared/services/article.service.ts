@@ -17,11 +17,16 @@ export class ArticleService {
     return this.http.get<ArticlesCardType[]>(environment.api + 'articles/top');
   }
 
-  getArticles(params: ActiveParamsType): Observable< {count: number, pages: number, items: ArticlesCardType[]}> {
+  getArticlesWithParams(params: ActiveParamsType): Observable< {count: number, pages: number, items: ArticlesCardType[]}> {
     return this.http.get<{count: number, pages: number, items: ArticlesCardType[]}>(environment.api + 'articles', {
       params: params
     });
   }
+
+  getArticles(): Observable< {count: number, pages: number, items: ArticlesCardType[]}> {
+    return this.http.get<{count: number, pages: number, items: ArticlesCardType[]}>(environment.api + 'articles');
+  }
+
 
   getCategories(): Observable< CategoriesType[]> {
     return this.http.get<CategoriesType[]>(environment.api + 'categories');

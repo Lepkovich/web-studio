@@ -36,21 +36,36 @@ export class CatalogComponent implements OnInit{
           this.categories = data;
           if (this.categories && this.categories.length > 0) {
             if (this.activeParams.categories && this.activeParams.categories.length > 0) {
+              this.categories.forEach(item => {item.active = this.activeParams.categories.includes(item.url)});
               this.filteredCategories = this.categories.filter(category => this.activeParams.categories.includes(category.url)); //отфильтровали categories
             } else {
               this.filteredCategories = [];
+              this.categories.forEach(item => {item.active = false});
             }
 
           }
         })
-      this.articleService.getArticles(this.activeParams)
-        .subscribe(data => {
-          this.pages = [];
-          for (let i = 1; i <= data.pages; i++) {
-            this.pages.push(i);
-          }
-          this.articles = data.items;
-        })
+      if (this.activeParams.categories) {
+        this.articleService.getArticlesWithParams(this.activeParams)
+          .subscribe(data => {
+            this.pages = [];
+            for (let i = 1; i <= data.pages; i++) {
+              this.pages.push(i);
+            }
+            this.articles = data.items;
+          })
+      } else {
+        this.articleService.getArticles()
+          .subscribe(data => {
+            this.pages = [];
+            for (let i = 1; i <= data.pages; i++) {
+              this.pages.push(i);
+            }
+            this.articles = data.items;
+          })
+      }
+
+
     });
 
 
