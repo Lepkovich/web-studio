@@ -153,4 +153,6 @@ article-filter.component и catalog.component работают.
 
 Начал верстать отдельную страницу блога article.component
 
+### 25/02
 
+Сверстал article.component
