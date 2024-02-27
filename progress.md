@@ -156,3 +156,15 @@ article-filter.component и catalog.component работают.
 ### 25/02
 
 Сверстал article.component
+
+Доделать плавный скролл на главной (см коментарии наставника)
+
+
+### 27/02
+
+Добавил запросы для article.component.
+
+Не отображаются relatedArticles
+
+
+
