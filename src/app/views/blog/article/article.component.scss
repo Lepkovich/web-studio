@@ -52,25 +52,149 @@
       }
     }
 
-    .article-body {
+    .article-main-block {
       display: flex;
       justify-content: space-between;
       margin-bottom: 60px;
 
-      .article-body-text {
-        width: 818px;
-        font-size: 14px;
-        line-height: 130%;
-        color: $base-text-color;
-
-        h1, h3 {
-          font-weight: 500;
-          font-size: 20px;
+      .article-body {
+        .article-body-text {
+          width: 818px;
+          font-size: 14px;
           line-height: 130%;
-          color: $blue-text-color;
+          color: $base-text-color;
+
+          h1, h3 {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 130%;
+            color: $blue-text-color;
+          }
+        }
+
+        .article-share {
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          margin-bottom: 60px;
+
+          span {
+            font-size: 14px;
+            color: $blue-text-color;
+            margin-right: 20px;
+          }
+
+          .article-share-icons {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            cursor: pointer;
+
+            svg {
+              margin-right: 14px;
+            }
+          }
+        }
+
+        .article-comments {
+          width: 818px;
+          .article-comments-head {
+            @include head-lora-38;
+            margin-bottom: 20px;
+          }
+
+          .article-comments-reg {
+            font-size: 14px;
+            color: $base-text-color;
+            margin-bottom: 60px;
+
+            a {
+              color: $blue-text-color;
+            }
+          }
+
+          .article-comments-item {
+            margin-bottom: 40px;
+
+            .article-comments-item-head {
+              display: flex;
+              justify-content: left;
+
+              .article-comments-item-head-ava {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: #b9d5fd;
+                border: 2px solid #709fdc;
+                margin-right: 26px;
+                background-position: center;
+                background-size: cover;
+                margin-bottom: 15px;
+
+              }
+
+              .article-comments-item-head-name {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+
+                .name {
+                  font-weight: 600;
+                  font-size: 18px;
+                  color: $blue-text-color;
+                  margin-bottom: 10px;
+                }
+
+                .date {
+                  font-weight: 600;
+                  font-size: 14px;
+                  color: #bebebe;
+                }
+              }
+            }
+
+            .article-comments-item-text {
+              font-size: 14px;
+              line-height: 140%;
+              color: $base-text-color;
+              margin-bottom: 40px;
+            }
+
+            .article-comments-item-reactions {
+              display: flex;
+              justify-content: left;
+              align-items: center;
+              font-weight: 600;
+              font-size: 14px;
+              color: $base-text-color;
+
+              .article-comments-item-reactions-like {
+                display: flex;
+                align-items: center;
+                margin-right: 15px;
+                span {
+                  margin-right: 3px;
+                }
+              }
+
+            }
+          }
+
+          .article-comments-more {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            cursor: pointer;
+
+            span {
+              font-weight: 500;
+              font-size: 20px;
+              color: $blue-text-color;
+              margin-right: 10px;
+            }
+          }
         }
       }
-
       .article-body-more {
         margin-top: 60px;
 
@@ -82,129 +206,20 @@
           color: $blue-text-color;
           margin-bottom: 20px;
         }
-      }
-    }
 
-    .article-share {
-      display: flex;
-      justify-content: left;
-      align-items: center;
-      margin-bottom: 60px;
-
-      span {
-        font-size: 14px;
-        color: $blue-text-color;
-        margin-right: 20px;
-      }
-
-      .article-share-icons {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-
-        svg {
-          margin-right: 14px;
-        }
-      }
-    }
-
-    .article-comments {
-      .article-comments-head {
-        @include head-lora-38;
-        margin-bottom: 20px;
-      }
-
-      .article-comments-reg {
-        font-size: 14px;
-        color: $base-text-color;
-        margin-bottom: 60px;
-
-        a {
-          color: $blue-text-color;
-        }
-      }
-
-      .article-comments-item {
-        margin-bottom: 40px;
-
-        .article-comments-item-head {
+        .article-body-more-articles {
           display: flex;
-          justify-content: left;
+          flex-direction: column;
 
-          .article-comments-item-head-ava {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #b9d5fd;
-            border: 2px solid #709fdc;
-            margin-right: 26px;
-            background-position: center;
-            background-size: cover;
-            margin-bottom: 15px;
-
+          blog-card {
+            margin-bottom: 60px;
           }
-
-          .article-comments-item-head-name {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
-
-            .name {
-              font-weight: 600;
-              font-size: 18px;
-              color: $blue-text-color;
-              margin-bottom: 10px;
-            }
-
-            .date {
-              font-weight: 600;
-              font-size: 14px;
-              color: #bebebe;
-            }
-          }
-        }
-
-        .article-comments-item-text {
-          font-size: 14px;
-          line-height: 140%;
-          color: $base-text-color;
-          margin-bottom: 40px;
-        }
-
-        .article-comments-item-reactions {
-          display: flex;
-          justify-content: left;
-          align-items: center;
-          font-weight: 600;
-          font-size: 14px;
-          color: $base-text-color;
-
-          .article-comments-item-reactions-like {
-            display: flex;
-            align-items: center;
-            margin-right: 15px;
-            span {
-              margin-right: 3px;
-            }
-          }
-
         }
       }
-
-      .article-comments-more {
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        cursor: pointer;
-
-        span {
-          font-weight: 500;
-          font-size: 20px;
-          color: $blue-text-color;
-          margin-right: 10px;
-        }
-      }
-
     }
+
+
   }
 }
+
+

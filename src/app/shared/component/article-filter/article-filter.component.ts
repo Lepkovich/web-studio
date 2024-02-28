@@ -35,16 +35,6 @@ export class ArticleFilterComponent implements OnInit {
         });
       }
 
-      // возможно понадобится такой подход для подготовки запроса на бэкенд
-      // const activeParams : ActiveParamsType = {categories: []};
-      // if (params.hasOwnProperty('categories')) {
-      //   this.activeParams.categories = Array.isArray(params['categories']) ? params['categories'] : [params['categories']];
-      // }
-      // if (params.hasOwnProperty('pages')) {
-      //   this.activeParams.pages = +params['pages']; //+ чтобы сразу конвертировать в цифру
-      // }
-      //
-      // this.activeParams = activeParams;
     })
   }
 
@@ -61,7 +51,6 @@ export class ArticleFilterComponent implements OnInit {
 
   updateFilter(category: string) {
 
-    console.log('this.categories до', this.categories);
 
     if (this.activeParams.categories && this.activeParams.categories.length > 0) {
       const existingCategoryParams = this.activeParams.categories.find(item => item === category)
@@ -85,7 +74,6 @@ export class ArticleFilterComponent implements OnInit {
       });
     }
 
-    console.log('this.categories после', this.categories)
 
     // const queryParams = {
     //   pages: this.activeParams.page,

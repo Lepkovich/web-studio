@@ -3,6 +3,7 @@ import {ArticleService} from "../../../shared/services/article.service";
 import {ActivatedRoute} from "@angular/router";
 import {ArticlesCardType} from "../../../../types/articles-card.type";
 import {ArticleType} from "../../../../types/article.type";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-article',
@@ -15,6 +16,7 @@ export class ArticleComponent implements OnInit{
   relatedArticles: ArticlesCardType[] = [];
 
   constructor(private articleService: ArticleService,
+              private sanitizer: DomSanitizer,
               private activatedRoute: ActivatedRoute) {
   }
 
@@ -27,11 +29,15 @@ export class ArticleComponent implements OnInit{
         });
       this.articleService.getRelatedArticles(params['url'])
         .subscribe((data: ArticlesCardType[]) => {
-
+      this.relatedArticles = data;
         })
     })
 
     this.articleService.getTopArticles()
 
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }

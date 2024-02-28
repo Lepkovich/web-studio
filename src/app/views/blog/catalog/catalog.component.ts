@@ -28,24 +28,38 @@ export class CatalogComponent implements OnInit{
   }
   ngOnInit() {
 
+    this.articleService.getCategories()
+      .subscribe(data => {
+        this.categories = data;
+      })
+
+
     this.activatedRoute.queryParams.subscribe(params => {
-      this.activeParams.categories = params['categories']; //взяли из queryParams только categories
 
-      this.articleService.getCategories()
-        .subscribe(data => {
-          this.categories = data;
-          if (this.categories && this.categories.length > 0) {
-            if (this.activeParams.categories && this.activeParams.categories.length > 0) {
-              this.categories.forEach(item => {item.active = this.activeParams.categories.includes(item.url)});
-              this.filteredCategories = this.categories.filter(category => this.activeParams.categories.includes(category.url)); //отфильтровали categories
-            } else {
-              this.filteredCategories = [];
-              this.categories.forEach(item => {item.active = false});
-            }
+      if (params.hasOwnProperty('categories')) {
+        this.activeParams.categories = Array.isArray(params['categories']) ? params['categories'] : [params['categories']]; //если не массив, то сделали массивом
+      }
 
-          }
-        })
-      if (this.activeParams.categories) {
+      if (params.hasOwnProperty('page')) {
+        this.activeParams.page = +params['page']; //+ чтобы сразу конвертировать в цифру
+      }
+
+      // this.activeParams.categories = params['categories']; //взяли из queryParams только categories
+      // this.activeParams.page = params['page']; //взяли из queryParams только categories
+
+      if (this.categories && this.categories.length > 0) {
+        if (this.activeParams.categories && this.activeParams.categories.length > 0) {
+          this.categories.forEach(item => {item.active = this.activeParams.categories.includes(item.url)});
+          this.filteredCategories = this.categories.filter(category => this.activeParams.categories.includes(category.url)); //отфильтровали categories
+        } else {
+          this.filteredCategories = [];
+          this.categories.forEach(item => {item.active = false});
+        }
+
+      }
+
+
+      if (this.activeParams.categories && this.activeParams.page) {
         this.articleService.getArticlesWithParams(this.activeParams)
           .subscribe(data => {
             this.pages = [];
@@ -68,16 +82,13 @@ export class CatalogComponent implements OnInit{
 
     });
 
-
-
-
   }
 
   removeAppliedFilter(appliedFilter: FilteredCategoriesType) {
     this.activeParams.categories = this.activeParams.categories.filter(item => item !== appliedFilter.url);
     if (this.activeParams.categories && this.activeParams.categories.length === 0) {
+
       this.open = false;
-      console.log('this.open', this.open)
     }
 
     this.activeParams.page = 1;
@@ -94,6 +105,7 @@ export class CatalogComponent implements OnInit{
 
   openPage(page: number) {
     this.activeParams.page = page;
+    console.log('this.activeParams', this.activeParams)
     this.router.navigate(['/catalog'], {queryParams: this.activeParams});
   }
 
