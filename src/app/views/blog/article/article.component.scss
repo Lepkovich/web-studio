@@ -11,9 +11,11 @@
 
     .article-breadcrumbs {
       margin-bottom: 60px;
-      span {
+      a {
         font-size: 16px;
         color: #b9d5fd;
+        text-decoration: none;
+        cursor: pointer;
       }
       font-weight: 500;
       font-size: 16px;
@@ -110,6 +112,29 @@
 
             a {
               color: $blue-text-color;
+            }
+          }
+
+          .article-comments-add {
+            margin-top: 40px;
+            margin-bottom: 60px;
+
+            input {
+              border: 1.50px solid $blue-text-color;
+              border-radius: 3px;
+              padding: 20px 64px 20px 20px;
+              width: 818px;
+              height: 248px;
+              font-family: "Montserrat", sans-serif;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 130%;
+              margin-bottom: 20px;
+              vertical-align: top;
+
+              ::placeholder {
+                color: #a8aba7;
+              }
             }
           }
 

@@ -22,6 +22,7 @@ export class CatalogComponent implements OnInit{
 
 
 
+
   constructor(private articleService: ArticleService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
@@ -79,7 +80,6 @@ export class CatalogComponent implements OnInit{
           })
       }
 
-
     });
 
   }
@@ -105,7 +105,6 @@ export class CatalogComponent implements OnInit{
 
   openPage(page: number) {
     this.activeParams.page = page;
-    console.log('this.activeParams', this.activeParams)
     this.router.navigate(['/catalog'], {queryParams: this.activeParams});
   }
 

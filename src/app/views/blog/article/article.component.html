@@ -1,7 +1,7 @@
-<div class="article" *ngIf="article">
+<div class="article" *ngIf="article" [formGroup]="commentForm">
   <div class="container">
     <div class="article-breadcrumbs">
-      <span>Блог / </span>
+      <a [routerLink]="'/catalog/'">Блог / </a>
       {{article.title}}
     </div>
     <div class="article-head">
@@ -43,9 +43,19 @@
           <div class="article-comments-head">
             Комментарии к статье
           </div>
+
+          <div class="article-comments-reg">
+            Будьте первым, кто оставит свой комментарий к статье!
+          </div>
           <div class="article-comments-reg">
             Чтобы оставлять комментарии, <a [routerLink]="'/login'">войдите</a> или <a [routerLink]="'/login'">зарегистрируйтесь</a>.
           </div>
+
+          <div class="article-comments-add">
+            <input type="text" placeholder="Напишите Ваш комментарий к статье..." formControlName="comment">
+            <button class="button" [disabled]="commentForm.invalid" (click)="sendComment()">Опубликовать комментарий</button>
+          </div>
+
 
           <div class="article-comments-item">
             <div class="article-comments-item-head">

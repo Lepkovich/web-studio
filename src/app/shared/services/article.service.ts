@@ -28,6 +28,7 @@ export class ArticleService {
     return this.http.get<{count: number, pages: number, items: ArticlesCardType[]}>(environment.api + 'articles');
   }
 
+
   getArticle(url: string): Observable<ArticleType> {
     return this.http.get<ArticleType>(environment.api + 'articles/' + url);
   }

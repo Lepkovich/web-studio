@@ -5,6 +5,7 @@ import { BlogRoutingModule } from './blog-routing.module';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ArticleComponent } from './article/article.component';
 import {SharedModule} from "../../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {SharedModule} from "../../shared/shared.module";
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     BlogRoutingModule
   ]
 })
