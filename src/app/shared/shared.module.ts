@@ -10,6 +10,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ArticleFilterComponent } from './component/article-filter/article-filter.component';
+import { LoaderComponent } from './component/loader/loader.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -19,6 +21,7 @@ import { ArticleFilterComponent } from './component/article-filter/article-filte
     SliderCardComponent,
     PopupFormComponent,
     ArticleFilterComponent,
+    LoaderComponent,
   ],
     imports: [
         CommonModule,
@@ -28,12 +31,14 @@ import { ArticleFilterComponent } from './component/article-filter/article-filte
       MatDialogModule,
       MatInputModule,
       MatSelectModule,
+      MatProgressSpinnerModule,
       MatFormFieldModule
     ],
   exports: [
     BlogCardComponent,
     SliderCardComponent,
     PopupFormComponent,
+    LoaderComponent,
     ArticleFilterComponent
   ]
 })

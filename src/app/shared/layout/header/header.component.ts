@@ -12,12 +12,14 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit{
 
   isLogged: boolean = false;
+  userName: string | null = null;
 
   constructor(private authService: AuthService,
               private _snackBar: MatSnackBar,
               private router: Router,
   ) {
     this.isLogged = authService.isLoggedIn();
+    this.userName = authService.UserName;
   }
 
   ngOnInit() {

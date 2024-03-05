@@ -51,6 +51,7 @@ export class SignupComponent {
 
             this.authService.setTokens(loginResponse.accessToken, loginResponse.refreshToken);
             this.authService.userId = loginResponse.userId;
+            this.authService.userName = this.signupForm.value.name as string;
             this._snackBar.open('Вы успешно зарегистрировались')
             this.router.navigate(['/']);
 

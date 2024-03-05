@@ -13,6 +13,7 @@ export class AuthService {
   public accessTokenKey: string = 'accessToken';
   public refreshTokenKey: string = 'refreshToken';
   public userIdKey: string = 'userId';
+  public userNameKey: string = 'userName';
 
   public isLogged$: Subject<boolean> = new Subject<boolean>(); //используем глобально (хеадер и др. страницы)
   private isLogged: boolean = false; //используем локально в сервисе
@@ -89,6 +90,18 @@ export class AuthService {
     } else {
       localStorage.removeItem(this.userIdKey)
     }
+  }
+
+  set userName(name: string | null) {
+    if (name) {
+      localStorage.setItem(this.userNameKey, name)
+    } else {
+      localStorage.removeItem(this.userNameKey)
+    }
+  }
+
+  get UserName(): null | string {
+    return localStorage.getItem(this.userNameKey);
   }
 
 }
