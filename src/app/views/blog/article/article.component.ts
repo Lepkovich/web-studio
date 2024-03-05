@@ -4,15 +4,14 @@ import {ActivatedRoute} from "@angular/router";
 import {ArticlesCardType} from "../../../../types/articles-card.type";
 import {ArticleType} from "../../../../types/article.type";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {CommentsService} from "../../../shared/services/comments.service";
 import {CommentsParamsType} from "../../../../types/comments-params.type";
 import {CommentsType} from "../../../../types/comments.type";
 import {FormBuilder, Validators} from "@angular/forms";
-import {LoginResponseType} from "../../../../types/login-response.type";
 import {DefaultResponseType} from "../../../../types/default-response.type";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SendCommentType} from "../../../../types/send-comment.type";
+import {CommentService} from "../../../shared/services/comment.service";
 
 @Component({
   selector: 'app-article',
@@ -30,11 +29,11 @@ export class ArticleComponent implements OnInit {
 
   articles: ArticlesCardType[] = [];
   idArray: string[] = [];
-  commentsParams: CommentsParamsType = {offset: 3, article: 'asdf'};
+  commentParams: CommentsParamsType = {offset: 3, article: 'asdf'};
   comment: CommentsType | null = null;
 
   constructor(private articleService: ArticleService,
-              private commentsService: CommentsService,
+              private commentService: CommentService,
               private sanitizer: DomSanitizer,
               private fb: FormBuilder,
               private _snackBar: MatSnackBar,
@@ -47,30 +46,26 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleType) => {
           this.article = data;
-          this.commentsParams.article = this.article.id;
+          this.commentParams.article = this.article.id;
+          // this.commentParams.offset = 3;
+          this.commentService.getComments(this.commentParams)
+            .subscribe((data: CommentsType) => {
+              this.comment = data;
+              console.log('this.comment', this.comment)
+            });
 
         });
       this.articleService.getRelatedArticles(params['url'])
         .subscribe((data: ArticlesCardType[]) => {
           this.relatedArticles = data;
         })
+
     })
 
-    this.articleService.getArticles()
-      .subscribe(data => {
-
-        this.articles = data.items;
-
-
-        this.commentsParams.offset = 3;
-
-        this.commentsService.getComments(this.commentsParams)
-          .subscribe((data: CommentsType) => {
-            this.comment = data;
-            console.log('this.comment', this.comment)
-          });
-
-      })
+    // this.articleService.getArticles()
+    //   .subscribe(data => {
+    //     this.articles = data.items;
+    //   })
 
   }
 
@@ -94,7 +89,7 @@ export class ArticleComponent implements OnInit {
       console.log('this.article', this.article)
       console.log('this.article.id', this.article.id)
 
-      this.commentsService.sendComment(paramsObject)
+      this.commentService.sendComment(paramsObject)
         .subscribe({
           next: (data: SendCommentType | DefaultResponseType) => {
             if (!(data as DefaultResponseType).error) {
