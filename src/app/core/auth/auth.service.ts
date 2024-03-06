@@ -4,6 +4,7 @@ import {DefaultResponseType} from "../../../types/default-response.type";
 import {LoginResponseType} from "../../../types/login-response.type";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {UserInfoType} from "../../../types/user-info.type";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class AuthService {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
       email, password, rememberMe
     })
+  }
+
+  getUserInfo(): Observable<DefaultResponseType | UserInfoType> {
+    return this.http.get<DefaultResponseType | UserInfoType>(environment.api + 'users', {withCredentials: true})
   }
 
   signup(name: string, email: string, password: string): Observable<DefaultResponseType | LoginResponseType> {
@@ -100,7 +105,7 @@ export class AuthService {
     }
   }
 
-  get UserName(): null | string {
+  get userName(): null | string {
     return localStorage.getItem(this.userNameKey);
   }
 

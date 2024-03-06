@@ -12,6 +12,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SendCommentType} from "../../../../types/send-comment.type";
 import {CommentService} from "../../../shared/services/comment.service";
+import {AuthService} from "../../../core/auth/auth.service";
 
 @Component({
   selector: 'app-article',
@@ -22,6 +23,8 @@ export class ArticleComponent implements OnInit {
 
   article!: ArticleType;
   relatedArticles: ArticlesCardType[] = [];
+  isLogged: boolean = false;
+
 
   commentForm = this.fb.group({
     comment: ['', [Validators.required]],
@@ -38,17 +41,20 @@ export class ArticleComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private fb: FormBuilder,
               private _snackBar: MatSnackBar,
+              private authService: AuthService,
               private activatedRoute: ActivatedRoute) {
   }
 
 
   ngOnInit() {
+    this.isLogged = this.authService.isLoggedIn();
+
     this.activatedRoute.params.subscribe(params => {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleType) => {
           this.article = data;
           this.commentParams.article = this.article.id;
-          // this.commentParams.offset = 3;
+          this.commentParams.offset = 3;
           this.commentService.getComments(this.commentParams)
             .subscribe((data: CommentsType) => {
               this.comments = data;

@@ -44,14 +44,14 @@
             Комментарии к статье
           </div>
 
-          <div class="article-comments-reg">
+          <div class="article-comments-reg" *ngIf="!comments || comments.allCount === 0">
             Будьте первым, кто оставит свой комментарий к статье!
           </div>
-          <div class="article-comments-reg">
+          <div class="article-comments-reg" *ngIf="!isLogged">
             Чтобы оставлять комментарии, <a [routerLink]="'/login'">войдите</a> или <a [routerLink]="'/login'">зарегистрируйтесь</a>.
           </div>
 
-          <div class="article-comments-add">
+          <div class="article-comments-add" *ngIf="isLogged">
             <input type="text" placeholder="Напишите Ваш комментарий к статье..." formControlName="comment">
             <button class="button" [disabled]="commentForm.invalid" (click)="sendComment()">Опубликовать комментарий</button>
           </div>

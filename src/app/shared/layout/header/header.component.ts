@@ -19,7 +19,8 @@ export class HeaderComponent implements OnInit{
               private router: Router,
   ) {
     this.isLogged = authService.isLoggedIn();
-    this.userName = authService.UserName;
+    this.userName = authService.userName;
+    console.log('this.userName', this.userName)
   }
 
   ngOnInit() {
@@ -44,6 +45,7 @@ export class HeaderComponent implements OnInit{
   doLogout(): void {
     this.authService.removeTokens();
     this.authService.userId = null;
+    this.authService.userName = null;
     this._snackBar.open('Вы вышли из системы')
     this.router.navigate(['/']);
   }
