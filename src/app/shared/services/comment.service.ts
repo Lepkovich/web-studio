@@ -14,23 +14,15 @@ export class CommentService {
 
 
   constructor(private http: HttpClient) { }
-  //
-  // getComments(params: CommentsParamsType): Observable<CommentsType> {
-  //   return this.http.get<CommentsType>(environment.api + 'comments', {params: params, withCredentials: true});
-  // }
+
 
   getComments(params: CommentsParamsType): Observable<CommentsType> {
     return this.http.get<CommentsType>(environment.api + 'comments', {params: params} );
   }
 
-  // sendComment(params: SendCommentType): Observable<DefaultResponseType> {
-  //   return this.http.post<DefaultResponseType>(environment.api + 'comments', params, {withCredentials: true})
-  // }
 
-  // sendComment(data: SendCommentType): Observable<SendCommentType | DefaultResponseType> {
-  //   return this.http.post<SendCommentType | DefaultResponseType>(environment.api + 'comments', data, {withCredentials: true})
-  // }
   sendComment(data: SendCommentType): Observable<SendCommentType | DefaultResponseType> {
     return this.http.post<SendCommentType | DefaultResponseType>(environment.api + 'comments', data,{withCredentials: true} )
   }
+
 }

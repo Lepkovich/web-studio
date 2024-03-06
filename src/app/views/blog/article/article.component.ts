@@ -30,7 +30,8 @@ export class ArticleComponent implements OnInit {
   articles: ArticlesCardType[] = [];
   idArray: string[] = [];
   commentParams: CommentsParamsType = {offset: 3, article: 'asdf'};
-  comment: CommentsType | null = null;
+  comments: CommentsType | null = null;
+
 
   constructor(private articleService: ArticleService,
               private commentService: CommentService,
@@ -50,8 +51,8 @@ export class ArticleComponent implements OnInit {
           // this.commentParams.offset = 3;
           this.commentService.getComments(this.commentParams)
             .subscribe((data: CommentsType) => {
-              this.comment = data;
-              console.log('this.comment', this.comment)
+              this.comments = data;
+              console.log('this.comment', this.comments)
             });
 
         });
@@ -61,11 +62,6 @@ export class ArticleComponent implements OnInit {
         })
 
     })
-
-    // this.articleService.getArticles()
-    //   .subscribe(data => {
-    //     this.articles = data.items;
-    //   })
 
   }
 
@@ -78,7 +74,7 @@ export class ArticleComponent implements OnInit {
     if (this.commentForm.invalid) {
       this._snackBar.open('Ошибка формы на старте');
     }
-    ;
+
 
     if (this.commentForm.valid && this.commentForm.value.comment && this.article.id) {
       const paramsObject: SendCommentType = {

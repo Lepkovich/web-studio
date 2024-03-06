@@ -100,6 +100,7 @@
 
         .article-comments {
           width: 818px;
+
           .article-comments-head {
             @include head-lora-38;
             margin-bottom: 20px;
@@ -137,73 +138,75 @@
               }
             }
           }
-
-          .article-comments-item {
-            margin-bottom: 40px;
-
-            .article-comments-item-head {
-              display: flex;
-              justify-content: left;
-
-              .article-comments-item-head-ava {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background-color: #b9d5fd;
-                border: 2px solid #709fdc;
-                margin-right: 26px;
-                background-position: center;
-                background-size: cover;
-                margin-bottom: 15px;
-
-              }
-
-              .article-comments-item-head-name {
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 15px;
-
-                .name {
-                  font-weight: 600;
-                  font-size: 18px;
-                  color: $blue-text-color;
-                  margin-bottom: 10px;
-                }
-
-                .date {
-                  font-weight: 600;
-                  font-size: 14px;
-                  color: #bebebe;
-                }
-              }
-            }
-
-            .article-comments-item-text {
-              font-size: 14px;
-              line-height: 140%;
-              color: $base-text-color;
+          .article-comments-items {
+            .article-comments-item {
               margin-bottom: 40px;
-            }
 
-            .article-comments-item-reactions {
-              display: flex;
-              justify-content: left;
-              align-items: center;
-              font-weight: 600;
-              font-size: 14px;
-              color: $base-text-color;
-
-              .article-comments-item-reactions-like {
+              .article-comments-item-head {
                 display: flex;
-                align-items: center;
-                margin-right: 15px;
-                span {
-                  margin-right: 3px;
+                justify-content: left;
+
+                .article-comments-item-head-ava {
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 50%;
+                  background-color: #b9d5fd;
+                  border: 2px solid #709fdc;
+                  margin-right: 26px;
+                  background-position: center;
+                  background-size: cover;
+                  margin-bottom: 15px;
+
+                }
+
+                .article-comments-item-head-name {
+                  display: flex;
+                  flex-direction: column;
+                  margin-bottom: 15px;
+
+                  .name {
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: $blue-text-color;
+                    margin-bottom: 10px;
+                  }
+
+                  .date {
+                    font-weight: 600;
+                    font-size: 14px;
+                    color: #bebebe;
+                  }
                 }
               }
 
+              .article-comments-item-text {
+                font-size: 14px;
+                line-height: 140%;
+                color: $base-text-color;
+                margin-bottom: 40px;
+              }
+
+              .article-comments-item-reactions {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                font-weight: 600;
+                font-size: 14px;
+                color: $base-text-color;
+
+                .article-comments-item-reactions-like {
+                  display: flex;
+                  align-items: center;
+                  margin-right: 15px;
+                  span {
+                    margin-right: 3px;
+                  }
+                }
+
+              }
             }
           }
+
 
           .article-comments-more {
             display: flex;
