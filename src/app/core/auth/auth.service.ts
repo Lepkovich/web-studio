@@ -17,6 +17,7 @@ export class AuthService {
   public userNameKey: string = 'userName';
 
   public isLogged$: Subject<boolean> = new Subject<boolean>(); //используем глобально (хеадер и др. страницы)
+  public userName$: Subject<string> = new Subject<string>(); //используем глобально в хедере
   private isLogged: boolean = false; //используем локально в сервисе
 
   constructor(private http: HttpClient) {
@@ -31,7 +32,7 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<DefaultResponseType | UserInfoType> {
-    return this.http.get<DefaultResponseType | UserInfoType>(environment.api + 'users', {withCredentials: true})
+    return this.http.get<DefaultResponseType | UserInfoType>(environment.api + 'users')
   }
 
   signup(name: string, email: string, password: string): Observable<DefaultResponseType | LoginResponseType> {

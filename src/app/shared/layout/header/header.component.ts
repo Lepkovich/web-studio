@@ -20,13 +20,17 @@ export class HeaderComponent implements OnInit{
   ) {
     this.isLogged = authService.isLoggedIn();
     this.userName = authService.userName;
-    console.log('this.userName', this.userName)
+    console.log('this.userName: ', this.userName)
   }
 
   ngOnInit() {
     this.authService.isLogged$
       .subscribe((isLoggedIn: boolean) => {
         this.isLogged = isLoggedIn;
+      });
+    this.authService.userName$
+      .subscribe((userName: string)  => {
+        this.userName = userName;
       });
   }
 

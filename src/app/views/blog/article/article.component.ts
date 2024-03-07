@@ -55,12 +55,7 @@ export class ArticleComponent implements OnInit {
           this.article = data;
           this.commentParams.article = this.article.id;
           this.commentParams.offset = 3;
-          this.commentService.getComments(this.commentParams)
-            .subscribe((data: CommentsType) => {
-              this.comments = data;
-              console.log('this.comment', this.comments)
-            });
-
+          this.getComments();
         });
       this.articleService.getRelatedArticles(params['url'])
         .subscribe((data: ArticlesCardType[]) => {
@@ -73,6 +68,14 @@ export class ArticleComponent implements OnInit {
 
   sanitizeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  getComments() {
+    this.commentService.getComments(this.commentParams)
+      .subscribe((data: CommentsType) => {
+        this.comments = data;
+        console.log('this.comment', this.comments)
+      });
   }
 
   sendComment() {
@@ -91,25 +94,43 @@ export class ArticleComponent implements OnInit {
       console.log('this.article', this.article)
       console.log('this.article.id', this.article.id)
 
-      this.commentService.sendComment(paramsObject)
-        .subscribe({
-          next: (data: SendCommentType | DefaultResponseType) => {
-            if (!(data as DefaultResponseType).error) {
-              this._snackBar.open((data as DefaultResponseType).message)
-            } else if ((data as DefaultResponseType).error) {
-              this._snackBar.open((data as DefaultResponseType).message);
-              throw new Error((data as DefaultResponseType).message);
-            }
-          },
+      // this.commentService.sendComment(paramsObject)
+      //   .subscribe({
+      //     next: (data: SendCommentType | DefaultResponseType) => {
+      //       if (!(data as DefaultResponseType).error) {
+      //         this._snackBar.open((data as DefaultResponseType).message)
+      //       } else if ((data as DefaultResponseType).error) {
+      //         this._snackBar.open((data as DefaultResponseType).message);
+      //         throw new Error((data as DefaultResponseType).message);
+      //       }
+      //     },
+      //
+      //     error: (errorResponse: HttpErrorResponse) => {
+      //       if (errorResponse.error && errorResponse.error.message) {
+      //         this._snackBar.open(errorResponse.error.message)
+      //       } else {
+      //         this._snackBar.open('Ошибка добавления комментария')
+      //       }
+      //     }
+      //   })
 
-          error: (errorResponse: HttpErrorResponse) => {
-            if (errorResponse.error && errorResponse.error.message) {
-              this._snackBar.open(errorResponse.error.message)
-            } else {
-              this._snackBar.open('Ошибка добавления комментария')
-            }
-          }
-        })
+      this.commentService.addCommentTo(this.article.id, this.commentForm.value.comment)
+        .subscribe((data: DefaultResponseType) => {
+        if (!data.error) {
+          // this.productService.getProduct(this.product.url)
+          //   .subscribe((data: ArticleType | DefaultResponseType) => {
+          //     if ((data as DefaultResponseType).error !== undefined) {
+          //       throw new Error((data as DefaultResponseType).message);
+          //     }
+          //     this.comments = (data as ArticleType).comments;
+          //     this.text = '';
+          //   })
+          this.getComments();
+        } else {
+          console.log(data.message);
+          this._snackBar.open('Произошла ошибка');
+        }
+      })
 
     }
 
