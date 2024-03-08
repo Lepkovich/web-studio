@@ -34,7 +34,7 @@ export class CommentService {
 
 
   sendComment(data: SendCommentType): Observable<SendCommentType | DefaultResponseType> {
-    return this.http.post<SendCommentType | DefaultResponseType>(environment.api + 'comments', data,{withCredentials: true} )
+    return this.http.post<SendCommentType | DefaultResponseType>(environment.api + 'comments', data)
   }
 
 

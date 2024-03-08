@@ -13,6 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SendCommentType} from "../../../../types/send-comment.type";
 import {CommentService} from "../../../shared/services/comment.service";
 import {AuthService} from "../../../core/auth/auth.service";
+import {CommentsToShowType} from "../../../../types/comments-to-show.type";
 
 @Component({
   selector: 'app-article',
@@ -31,9 +32,22 @@ export class ArticleComponent implements OnInit {
   })
 
   articles: ArticlesCardType[] = [];
-  idArray: string[] = [];
-  commentParams: CommentsParamsType = {offset: 3, article: 'asdf'};
+  commentParams: CommentsParamsType = {offset: 0, article: ''};
   comments: CommentsType | null = null;
+
+  commentsToShow: CommentsType['comments'] | null = null;
+
+  // commentsToShow: CommentsType['comments'] = [ {
+  //   id: "",
+  //   text: "",
+  //   date: "",
+  //   likesCount: 0,
+  //   dislikesCount: 0,
+  //   user: {
+  //     id: "",
+  //     name: ""
+  //   }
+  // } ];
 
 
   constructor(private articleService: ArticleService,
@@ -53,8 +67,6 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleType) => {
           this.article = data;
-          this.commentParams.article = this.article.id;
-          this.commentParams.offset = 3;
           this.getComments();
         });
       this.articleService.getRelatedArticles(params['url'])
@@ -71,11 +83,32 @@ export class ArticleComponent implements OnInit {
   }
 
   getComments() {
-    this.commentService.getComments(this.commentParams)
-      .subscribe((data: CommentsType) => {
-        this.comments = data;
-        console.log('this.comment', this.comments)
-      });
+    if (this.article.commentsCount && this.article.commentsCount > 0) {
+
+      this.commentParams.article = this.article.id;
+      this.commentParams.offset = 1;
+
+      this.commentService.getComments(this.commentParams)
+        .subscribe((data: CommentsType) => {
+          this.comments = data;
+          this.processComments();
+        });
+    }
+  }
+
+  processComments() {
+
+    if (this.comments && this.comments.comments.length > 0) {
+      const comments = this.comments.comments;
+      if (this.commentsToShow && this.commentsToShow.length === 1 && this.commentsToShow[0].id === "") {
+        this.commentsToShow[0] = comments[0];
+      }
+
+    }
+    console.log('this.article', this.article);
+    console.log('this.comment', this.comments);
+    console.log('this.article.id', this.article.id);
+    console.log('this.commentsToShow', this.commentsToShow);
   }
 
   sendComment() {
@@ -91,46 +124,46 @@ export class ArticleComponent implements OnInit {
         "article": this.article.id
       }
 
-      console.log('this.article', this.article)
-      console.log('this.article.id', this.article.id)
+      this.commentService.sendComment(paramsObject)
+        .subscribe({
+          next: (data: SendCommentType | DefaultResponseType) => {
+            if (!(data as DefaultResponseType).error) {
+              this._snackBar.open((data as DefaultResponseType).message)
+            } else if ((data as DefaultResponseType).error) {
+              this._snackBar.open((data as DefaultResponseType).message);
+              throw new Error((data as DefaultResponseType).message);
+            }
+            this.commentForm.reset();
+            this.getComments();
+          },
 
-      // this.commentService.sendComment(paramsObject)
-      //   .subscribe({
-      //     next: (data: SendCommentType | DefaultResponseType) => {
-      //       if (!(data as DefaultResponseType).error) {
-      //         this._snackBar.open((data as DefaultResponseType).message)
-      //       } else if ((data as DefaultResponseType).error) {
-      //         this._snackBar.open((data as DefaultResponseType).message);
-      //         throw new Error((data as DefaultResponseType).message);
-      //       }
-      //     },
-      //
-      //     error: (errorResponse: HttpErrorResponse) => {
-      //       if (errorResponse.error && errorResponse.error.message) {
-      //         this._snackBar.open(errorResponse.error.message)
-      //       } else {
-      //         this._snackBar.open('Ошибка добавления комментария')
-      //       }
-      //     }
-      //   })
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.message) {
+              this._snackBar.open(errorResponse.error.message)
+            } else {
+              this._snackBar.open('Ошибка добавления комментария')
+            }
+          }
+        })
 
-      this.commentService.addCommentTo(this.article.id, this.commentForm.value.comment)
-        .subscribe((data: DefaultResponseType) => {
-        if (!data.error) {
-          // this.productService.getProduct(this.product.url)
-          //   .subscribe((data: ArticleType | DefaultResponseType) => {
-          //     if ((data as DefaultResponseType).error !== undefined) {
-          //       throw new Error((data as DefaultResponseType).message);
-          //     }
-          //     this.comments = (data as ArticleType).comments;
-          //     this.text = '';
-          //   })
-          this.getComments();
-        } else {
-          console.log(data.message);
-          this._snackBar.open('Произошла ошибка');
-        }
-      })
+      // Код eva
+      // this.commentService.addCommentTo(this.article.id, this.commentForm.value.comment)
+      //   .subscribe((data: DefaultResponseType) => {
+      //   if (!data.error) {
+      //     // this.productService.getProduct(this.product.url)
+      //     //   .subscribe((data: ArticleType | DefaultResponseType) => {
+      //     //     if ((data as DefaultResponseType).error !== undefined) {
+      //     //       throw new Error((data as DefaultResponseType).message);
+      //     //     }
+      //     //     this.comments = (data as ArticleType).comments;
+      //     //     this.text = '';
+      //     //   })
+      //     this.getComments();
+      //   } else {
+      //     console.log(data.message);
+      //     this._snackBar.open('Произошла ошибка');
+      //   }
+      // })
 
     }
 
