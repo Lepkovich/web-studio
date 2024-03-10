@@ -31,6 +31,14 @@
             Я принимаю <a href="#">условия пользовательского соглашения</a>  и даю <a href="#">согласие на обработку персональных данных.</a>
           </label>
         </div>
+        <div class="auth-error-box">
+          <div class="auth-error-text" *ngIf="signupForm.get('name')?.invalid
+                 && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)">Только буквы, кириллица. Первая - заглавная.</div>
+          <div class="auth-error-text" *ngIf="signupForm.get('email')?.invalid
+                 && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">Введите правильный e-mail</div>
+          <div class="auth-error-text" *ngIf="signupForm.get('password')?.invalid
+                 && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">От 8 символов, латиница, с цифрой, одна буква - прописная</div>
+        </div>
         <div class="auth-button">
           <button class="button" [disabled]="signupForm.invalid" (click)="signup()">Зарегистрироваться</button>
         </div>

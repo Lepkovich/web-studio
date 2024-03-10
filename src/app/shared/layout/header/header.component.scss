@@ -49,13 +49,16 @@ header.header {
       .header-phone {
         color: $blue-text-color;
         text-decoration: none;
-        margin-right: 141px;
       }
 
       .header-user {
+        width: 224px;
+        text-align: right;
+        flex-shrink: 0;
+
         a {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-end;
           align-items: center;
           text-decoration: none;
           cursor: pointer;

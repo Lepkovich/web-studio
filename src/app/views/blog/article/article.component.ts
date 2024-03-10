@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ArticleService} from "../../../shared/services/article.service";
 import {ActivatedRoute} from "@angular/router";
 import {ArticlesCardType} from "../../../../types/articles-card.type";
@@ -13,7 +13,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SendCommentType} from "../../../../types/send-comment.type";
 import {CommentService} from "../../../shared/services/comment.service";
 import {AuthService} from "../../../core/auth/auth.service";
-import {CommentsToShowType} from "../../../../types/comments-to-show.type";
+import {LoaderService} from "../../../shared/services/loader.service";
+import {UserReactionsType} from "../../../../types/user-reactions.type";
 
 @Component({
   selector: 'app-article',
@@ -21,6 +22,7 @@ import {CommentsToShowType} from "../../../../types/comments-to-show.type";
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+
 
   article!: ArticleType;
   relatedArticles: ArticlesCardType[] = [];
@@ -33,9 +35,10 @@ export class ArticleComponent implements OnInit {
 
   articles: ArticlesCardType[] = [];
   commentParams: CommentsParamsType = {offset: 0, article: ''};
-  comments: CommentsType | null = null;
 
-  commentsToShow: CommentsType['comments'] | null = null;
+  comments: CommentsType | null = null;
+  userReactions: UserReactionsType[] = [];
+  showMore: boolean = false;
 
   // commentsToShow: CommentsType['comments'] = [ {
   //   id: "",
@@ -56,6 +59,7 @@ export class ArticleComponent implements OnInit {
               private fb: FormBuilder,
               private _snackBar: MatSnackBar,
               private authService: AuthService,
+              private loaderService: LoaderService,
               private activatedRoute: ActivatedRoute) {
   }
 
@@ -67,6 +71,7 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleType) => {
           this.article = data;
+          this.commentParams.article = this.article.id;
           this.getComments();
         });
       this.articleService.getRelatedArticles(params['url'])
@@ -83,33 +88,64 @@ export class ArticleComponent implements OnInit {
   }
 
   getComments() {
+    this.loaderService.show();
     if (this.article.commentsCount && this.article.commentsCount > 0) {
-
-      this.commentParams.article = this.article.id;
-      this.commentParams.offset = 1;
 
       this.commentService.getComments(this.commentParams)
         .subscribe((data: CommentsType) => {
           this.comments = data;
-          this.processComments();
+          if (this.isLogged) {
+
+            this.commentService.getUserReactions(this.article.id)
+              .subscribe((data: UserReactionsType[] | DefaultResponseType) => {
+                if (!(data as DefaultResponseType).error && (data as UserReactionsType[])) {
+                  this.userReactions = (data as UserReactionsType[]);
+
+                  // Проходимся по массиву комментариев
+                  if (this.comments) {
+                    this.comments.comments.forEach(comment => {
+                      // Находим соответствующую реакцию пользователя
+                      const reaction = this.userReactions.find(reaction => reaction.comment === comment.id);
+
+                      // Если нашли реакцию, присваиваем её комментарию
+                      if (reaction) {
+                        comment.user.reaction = reaction.action;
+                      }
+                    });
+                  }
+
+                } else if ((data as DefaultResponseType).error) {
+                  this._snackBar.open((data as DefaultResponseType).message);
+                  throw new Error((data as DefaultResponseType).message);
+                }
+
+              })
+          }
+
+          if (this.commentParams.offset === 0) {
+            if (this.comments.comments.length > 3) {
+              this.comments.comments = this.comments.comments.slice(0, 3) as CommentsType['comments'];
+              this.showMore = true;
+              this.commentParams.offset = 3;
+              return;
+            }
+          }
+
+          if (this.commentParams.offset) {
+            this.commentParams.offset += 10;
+            this.showMore = this.comments.allCount > this.commentParams.offset;
+          }
+
         });
     }
   }
 
-  processComments() {
-
-    if (this.comments && this.comments.comments.length > 0) {
-      const comments = this.comments.comments;
-      if (this.commentsToShow && this.commentsToShow.length === 1 && this.commentsToShow[0].id === "") {
-        this.commentsToShow[0] = comments[0];
-      }
-
-    }
-    console.log('this.article', this.article);
-    console.log('this.comment', this.comments);
-    console.log('this.article.id', this.article.id);
-    console.log('this.commentsToShow', this.commentsToShow);
-  }
+  // processComments() {
+  //   this.commentsToShowCount += 10;
+  //   if (this.comments) {
+  //     this.commentsToShow = this.comments.comments.slice(0, this.commentsToShowCount) as CommentsType['comments'];
+  //   }
+  // }
 
   sendComment() {
 
@@ -134,6 +170,7 @@ export class ArticleComponent implements OnInit {
               throw new Error((data as DefaultResponseType).message);
             }
             this.commentForm.reset();
+            this.commentParams.offset = 0;
             this.getComments();
           },
 
@@ -145,32 +182,43 @@ export class ArticleComponent implements OnInit {
             }
           }
         })
-
-      // Код eva
-      // this.commentService.addCommentTo(this.article.id, this.commentForm.value.comment)
-      //   .subscribe((data: DefaultResponseType) => {
-      //   if (!data.error) {
-      //     // this.productService.getProduct(this.product.url)
-      //     //   .subscribe((data: ArticleType | DefaultResponseType) => {
-      //     //     if ((data as DefaultResponseType).error !== undefined) {
-      //     //       throw new Error((data as DefaultResponseType).message);
-      //     //     }
-      //     //     this.comments = (data as ArticleType).comments;
-      //     //     this.text = '';
-      //     //   })
-      //     this.getComments();
-      //   } else {
-      //     console.log(data.message);
-      //     this._snackBar.open('Произошла ошибка');
-      //   }
-      // })
-
     }
+  }
 
+  sendReaction(reaction: string, commentId: string) {
+    if (this.isLogged) {
+      this.commentService.sendReaction(reaction, commentId)
+        .subscribe({
+          next: (data: DefaultResponseType) => {
+            if (!(data as DefaultResponseType).error) {
+              if (reaction === 'violate') {
+                this._snackBar.open('Жалоба отправлена');
+                return;
+              }
+              this._snackBar.open((data as DefaultResponseType).message + " Ваш голос учтен")
+            } else if ((data as DefaultResponseType).error) {
+              this._snackBar.open((data as DefaultResponseType).message);
+              throw new Error((data as DefaultResponseType).message);
+            }
+            if (this.commentParams.offset) {
+              this.commentParams.offset -= 10;
+              this.commentParams.offset = this.commentParams.offset < 0 ? 0 : this.commentParams.offset;
+            };
+            this.getComments();
+          },
 
-    if (this.commentForm.value && this.article.id) {
-
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.message) {
+              this._snackBar.open(errorResponse.error.message)
+            } else {
+              this._snackBar.open('Ошибка добавления реакции на комментарий')
+            }
+          }
+        })
+    } else {
+      this._snackBar.open('Только зарегистрированные пользователи могут оставлять реакции')
     }
-
   }
 }
+
+

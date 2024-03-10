@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {CommentsParamsType} from "../../../types/comments-params.type";
 import {Observable, tap} from "rxjs";
 import {CommentsType} from "../../../types/comments.type";
 import {environment} from "../../../environments/environment";
 import {SendCommentType} from "../../../types/send-comment.type";
 import {DefaultResponseType} from "../../../types/default-response.type";
+import {UserReactionsType} from "../../../types/user-reactions.type";
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +38,23 @@ export class CommentService {
     return this.http.post<SendCommentType | DefaultResponseType>(environment.api + 'comments', data)
   }
 
-
-  addCommentTo(articleID: string, text: string): Observable<DefaultResponseType> {
-    return this.http.post<DefaultResponseType>(environment.api + 'comments', {
-      text: text,
-      article: articleID,
+  sendReaction(reaction: string, articleId: string): Observable<DefaultResponseType> {
+    return this.http.post<DefaultResponseType>(environment.api + 'comments/' + articleId + '/apply-action', {
+      action: reaction
     })
   }
+
+  getUserReactions(articleId: string): Observable<UserReactionsType[] | DefaultResponseType> {
+    const params = new HttpParams().set('articleId', articleId);
+    return this.http.get<UserReactionsType[] | DefaultResponseType>(environment.api + 'comments/article-comment-actions', {params})
+  }
+
+
+  // addCommentTo(articleID: string, text: string): Observable<DefaultResponseType> {
+  //   return this.http.post<DefaultResponseType>(environment.api + 'comments', {
+  //     text: text,
+  //     article: articleID,
+  //   })
+  // }
 
 }

@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit{
             this.authService.getUserInfo()
               .subscribe((data: UserInfoType | DefaultResponseType) => {
                 if (data as UserInfoType) {
-                  this.authService.userName = (data as UserInfoType).name;
+                  this.authService.setUserName((data as UserInfoType).name);
                 }
               })
             this._snackBar.open('Вы успешно авторизовались');

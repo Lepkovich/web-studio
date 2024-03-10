@@ -45,8 +45,19 @@
       }
     }
 
+    .auth-error-box {
+      margin-top: 5px;
+      height: 30px;
+
+      .auth-error-text {
+        color: red;
+        font-size: 14px;
+        line-height: 100%;
+      }
+    }
+
     .auth-button {
-      margin-top: 40px;
+      margin-top: 5px;
 
       button.button {
         width: 422px;

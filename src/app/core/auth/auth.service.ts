@@ -14,15 +14,24 @@ export class AuthService {
   public accessTokenKey: string = 'accessToken';
   public refreshTokenKey: string = 'refreshToken';
   public userIdKey: string = 'userId';
-  public userNameKey: string = 'userName';
 
   public isLogged$: Subject<boolean> = new Subject<boolean>(); //используем глобально (хеадер и др. страницы)
-  public userName$: Subject<string> = new Subject<string>(); //используем глобально в хедере
+  public userName$: Subject<string | null> = new Subject<string | null>(); //используем глобально в хедере
   private isLogged: boolean = false; //используем локально в сервисе
+  private userName: string | null = null;
 
   constructor(private http: HttpClient) {
     this.isLogged = !!localStorage.getItem(this.accessTokenKey); //при обращении к сервису проверяем залогинен ли пользователь
     //!! - приводит к boolean любой из типов (в т.ч. null и undefined)
+  }
+
+  setUserName(name: string | null) {
+      this.userName = name;
+      this.userName$.next(this.userName)
+  }
+
+  public getUserName() {
+    return this.userName;
   }
 
   login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
@@ -96,18 +105,6 @@ export class AuthService {
     } else {
       localStorage.removeItem(this.userIdKey)
     }
-  }
-
-  set userName(name: string | null) {
-    if (name) {
-      localStorage.setItem(this.userNameKey, name)
-    } else {
-      localStorage.removeItem(this.userNameKey)
-    }
-  }
-
-  get userName(): null | string {
-    return localStorage.getItem(this.userNameKey);
   }
 
 }

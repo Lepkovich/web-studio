@@ -120,7 +120,8 @@
             margin-top: 40px;
             margin-bottom: 60px;
 
-            input {
+
+            textarea {
               border: 1.50px solid $blue-text-color;
               border-radius: 3px;
               padding: 20px 64px 20px 20px;
@@ -131,7 +132,7 @@
               font-size: 14px;
               line-height: 130%;
               margin-bottom: 20px;
-              vertical-align: top;
+              resize: none;
 
               ::placeholder {
                 color: #a8aba7;
@@ -194,13 +195,28 @@
                 font-size: 14px;
                 color: $base-text-color;
 
-                .article-comments-item-reactions-like {
+                .article-comments-item-reactions-item {
+                  cursor: pointer;
                   display: flex;
                   align-items: center;
                   margin-right: 15px;
+
                   span {
                     margin-right: 3px;
                   }
+
+
+                  &.active {
+                    span {
+                      color: #709fdc;
+                    }
+                    svg {
+                      path {
+                        stroke: #709FDC;
+                      }
+                    }
+                  }
+
                 }
 
               }
