@@ -32,15 +32,16 @@ header.header {
           li {
             margin-right: 30px;
             list-style: none;
-            color: $base-text-color;
-
-            &.active {
-              color: $blue-text-color;
-            }
 
             a {
               cursor: pointer;
               text-decoration: none;
+              color: $base-text-color;
+              scroll-behavior: smooth;
+              &.active {
+                color: $blue-text-color;
+              }
+
             }
           }
         }

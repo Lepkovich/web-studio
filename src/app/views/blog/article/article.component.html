@@ -1,3 +1,7 @@
+<div class="no-data" *ngIf="!article">
+  Ошибка получения данных с бэкенда
+</div>
+
 <div class="article" *ngIf="article" [formGroup]="commentForm">
   <div class="container">
     <div class="article-breadcrumbs">

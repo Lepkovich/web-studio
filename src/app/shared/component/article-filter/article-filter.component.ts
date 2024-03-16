@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {CategoriesType} from "../../../../types/categories.type";
 import {ActiveParamsType} from "../../../../types/active-params.type";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -18,6 +18,15 @@ export class ArticleFilterComponent implements OnInit {
 
   @Input() categories: CategoriesType[] = [];
   @Input() open: boolean = false;
+
+
+  //отследим клик на странице и если он не в поле фильтра, закроем фильтр
+  @HostListener('document:click', ['$event'])
+  click(event: Event) {
+    if (this.open && (event.target as HTMLElement).className.indexOf('catalog-filter') === -1) {
+      this.open = false
+    }
+  }
 
   activeParams: ActiveParamsType = {page: 1, categories: []};
 

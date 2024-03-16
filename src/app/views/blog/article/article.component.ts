@@ -15,6 +15,7 @@ import {CommentService} from "../../../shared/services/comment.service";
 import {AuthService} from "../../../core/auth/auth.service";
 import {LoaderService} from "../../../shared/services/loader.service";
 import {UserReactionsType} from "../../../../types/user-reactions.type";
+import {CommentsToShowType} from "../../../../types/comments-to-show.type";
 
 @Component({
   selector: 'app-article',
@@ -37,7 +38,7 @@ export class ArticleComponent implements OnInit {
   commentParams: CommentsParamsType = {offset: 0, article: ''};
 
   comments: CommentsType | null = null;
-  // commentsToShow: CommentsType | null = null; нужно добавлять в него все комменты после нажатия "показать еще"
+  commentsToShow: CommentsToShowType | null = null;
   userReactions: UserReactionsType[] = [];
   showMore: boolean = false;
 
@@ -67,10 +68,16 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedIn();
+    this.loaderService.show();
+
 
     this.activatedRoute.params.subscribe(params => {
       this.articleService.getArticle(params['url'])
         .subscribe((data: ArticleType) => {
+          if (!data) {
+            this._snackBar.open('Ошибка получения ответа с сервера');
+            throw new Error('Ошибка получения ответа с сервера');
+          }
           this.article = data;
           if (this.article) {
             this.commentParams.article = this.article.id;
@@ -79,7 +86,12 @@ export class ArticleComponent implements OnInit {
         });
       this.articleService.getRelatedArticles(params['url'])
         .subscribe((data: ArticlesCardType[]) => {
+          if (!data) {
+            this._snackBar.open('Ошибка получения ответа с сервера');
+            throw new Error('Ошибка получения ответа с сервера');
+          }
           this.relatedArticles = data;
+
         })
 
     })
@@ -96,7 +108,16 @@ export class ArticleComponent implements OnInit {
 
       this.commentService.getComments(this.commentParams)
         .subscribe((data: CommentsType) => {
+          if (!data) {
+            this._snackBar.open('ошибка получения запроса с сервера');
+            throw new Error((data as DefaultResponseType).message);
+          }
           this.comments = data;
+          this.commentsToShow = data.comments;
+
+          console.log('this.comments', this.comments);
+          console.log('this.commentsToShow', this.commentsToShow)
+
           if (this.isLogged) {
 
             if (this.article && this.article.id) {

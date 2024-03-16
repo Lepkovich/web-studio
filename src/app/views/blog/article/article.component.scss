@@ -1,10 +1,16 @@
 @import "../../../../assets/styles/mixins";
 @import "../../../../assets/styles/variables";
 
+.no-data {
+  color: red;
+  text-align: center;
+  min-height: 500px;
+
+}
 .article {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  padding-top: 120px;
+  padding-top: 80px;
   padding-bottom: 120px;
 
   .container {
@@ -79,6 +85,7 @@
           justify-content: left;
           align-items: center;
           margin-bottom: 60px;
+          margin-top: 60px;
 
           span {
             font-size: 14px;
