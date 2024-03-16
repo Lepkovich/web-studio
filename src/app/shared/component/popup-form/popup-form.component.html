@@ -19,10 +19,18 @@
                          && (orderForm.get('name')?.dirty || orderForm.get('name')?.touched) ? 'red' : ''}"
            formControlName="name">
 
+    <div class="auth-error-text" *ngIf="orderForm.get('name')?.invalid
+                 && (orderForm.get('name')?.dirty || orderForm.get('name')?.touched)">
+      В имени могут быть только буквы кириллицей. Первая - заглавная.</div>
+
     <input type="text" class="input" placeholder="Ваш номер телефона"
            [ngStyle]="{'border-color': orderForm.get('phone')?.invalid
                          && (orderForm.get('phone')?.dirty || orderForm.get('phone')?.touched) ? 'red' : ''}"
            formControlName="phone">
+
+    <div class="auth-error-text" *ngIf="orderForm.get('phone')?.invalid
+                 && (orderForm.get('phone')?.dirty || orderForm.get('phone')?.touched)">
+      В телефоне могут быть только цифры, пробел, -().</div>
 
   </div>
   <button class="button" *ngIf="!isConsult" [disabled]="orderForm.invalid" (click)="sendRequest()">Оставить заявку

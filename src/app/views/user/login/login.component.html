@@ -11,6 +11,9 @@
                  && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) ? 'red' : ''}"
                  placeholder="Электронная почта" formControlName="email">
         </div>
+        <div class="auth-error-text" *ngIf="loginForm.get('email')?.invalid
+                 && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">Введите правильный e-mail
+        </div>
         <div class="auth-input">
           <input type="password" class="input"
                  [ngStyle]="{'border-color': loginForm.get('password')?.invalid
@@ -21,10 +24,7 @@
           <input type="checkbox" id="remember" formControlName="rememberMe">
           <label for="remember">Запомнить меня</label>
         </div>
-        <div class="auth-error-box">
-          <div class="auth-error-text" *ngIf="loginForm.get('email')?.invalid
-                 && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">Введите правильный e-mail</div>
-        </div>
+
         <div class="auth-button">
           <button class="button" [disabled]="loginForm.invalid" (click)="login()">Войти</button>
         </div>

@@ -53,7 +53,6 @@
 
           <div class="article-comments-add" *ngIf="isLogged">
             <textarea placeholder="Напишите Ваш комментарий к статье..." formControlName="comment"></textarea>
-<!--            <input type="text" placeholder="Напишите Ваш комментарий к статье..." formControlName="comment">-->
             <button class="button" [disabled]="commentForm.invalid" (click)="sendComment()">Опубликовать комментарий
             </button>
           </div>

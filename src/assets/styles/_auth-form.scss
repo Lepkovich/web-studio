@@ -12,17 +12,27 @@
   }
 
   .auth-inputs {
-     margin-bottom: 40px;
+    margin-bottom: 40px;
 
     .auth-input {
       margin-bottom: 5px;
+
       input {
         width: 422px;
       }
     }
 
+    .auth-error-text {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: red;
+      font-size: 14px;
+      line-height: 100%;
+    }
+
     .auth-checkbox {
       margin-top: 5px;
+      margin-bottom: 40px;
       max-width: 422px;
       display: flex;
       align-items: baseline;
@@ -42,17 +52,6 @@
           color: $blue-text-color;
           text-decoration-line: underline;
         }
-      }
-    }
-
-    .auth-error-box {
-      margin-top: 5px;
-      height: 30px;
-
-      .auth-error-text {
-        color: red;
-        font-size: 14px;
-        line-height: 100%;
       }
     }
 

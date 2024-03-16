@@ -64,13 +64,18 @@
       width: 422px;
       height: 56px;
       border-radius: 3px;
-      //color: #A8ABA7;
       color: $blue-text-color;
       font-family: 'Montserrat', sans-serif;
       font-size: 14px;
       font-weight: 400;
       text-align: left;
 
+    }
+    .auth-error-text {
+      margin-bottom: 5px;
+      color: red;
+      font-size: 14px;
+      line-height: 100%;
     }
   }
 
